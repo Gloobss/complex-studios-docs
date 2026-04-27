@@ -89,20 +89,12 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
       <div className="p-6 pb-2">
         <div
           onClick={() => onSelectDoc('home')}
-          className="flex items-center gap-3 text-white tracking-tight mb-8 group cursor-pointer"
+          className="flex items-center gap-3 text-white font-display font-bold text-2xl tracking-tight mb-8 group cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(198,255,61,0.08)] group-hover:shadow-[0_0_30px_rgba(198,255,61,0.18)] group-hover:border-[#c6ff3d]/30 transition-all duration-300">
-            <img
-              src="https://r2.fivemanage.com/kMtLpNIqKRhMGpzrcZnQY/cpxstu.png"
-              alt="Complex Studios"
-              className="w-7 h-7 object-contain"
-              loading="eager"
-            />
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#c6ff3d] to-[#8de000] flex items-center justify-center shadow-[0_0_20px_rgba(198,255,61,0.2)] group-hover:shadow-[0_0_30px_rgba(198,255,61,0.4)] transition-shadow duration-300">
+            <Home className="w-4 h-4 text-black" strokeWidth={2.5} />
           </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-resolve text-xl text-white">complex</span>
-            <span className="text-[9.5px] font-mono uppercase tracking-[0.3em] text-zinc-500 mt-0.5">studios · docs</span>
-          </div>
+          <span>complex</span>
         </div>
 
         <div className="flex flex-col gap-3 mb-4">

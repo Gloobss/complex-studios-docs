@@ -56,17 +56,12 @@ function AppContent() {
         <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#080808]/90 backdrop-blur-xl border-b border-white/[0.05] z-50 flex items-center justify-between px-6">
           <div
             onClick={() => setCurrentDoc('home')}
-            className="flex items-center gap-2.5 text-white tracking-tight cursor-pointer"
+            className="flex items-center gap-3 text-white font-display font-bold text-xl tracking-tight cursor-pointer"
           >
-            <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center overflow-hidden">
-              <img
-                src="https://r2.fivemanage.com/kMtLpNIqKRhMGpzrcZnQY/cpxstu.png"
-                alt="Complex Studios"
-                className="w-5 h-5 object-contain"
-                loading="eager"
-              />
+            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#c6ff3d] to-[#8de000] flex items-center justify-center">
+               <span className="text-black font-sans font-bold text-[10px]">C</span>
             </div>
-            <span className="font-resolve text-lg">complex</span>
+            <span>complex</span>
           </div>
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
