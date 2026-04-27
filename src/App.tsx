@@ -47,7 +47,7 @@ function AppContent() {
   }, [currentDoc]);
 
   return (
-    <div className="flex relative bg-[#020202] text-zinc-300 min-h-screen font-sans items-start selection:bg-lima/30 selection:text-lima">
+    <div className="flex relative text-zinc-300 min-h-screen font-sans items-start selection:bg-lima/30 selection:text-lima">
       <HeroBackground />
       <LanguageSwitcher />
       
