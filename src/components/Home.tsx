@@ -131,18 +131,16 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
     <div className="relative w-full">
       {/* ─────────── HERO ─────────── */}
       <section className="relative min-h-screen flex flex-col justify-center px-6 lg:px-16 max-w-[1280px] mx-auto pt-24 pb-12">
-        {/* Giant background label — DOCS */}
+        {/* Giant background label — DOCS (Resolve, heavier stroke + soft fill) */}
         <div
           aria-hidden
-          className="pointer-events-none select-none absolute -top-2 right-0 lg:right-[-3rem] font-resolve leading-[0.78] z-0 whitespace-nowrap"
+          className="pointer-events-none select-none absolute -top-4 right-0 lg:right-[-3rem] font-resolve leading-[0.78] z-0 whitespace-nowrap"
           style={{
-            fontSize: 'clamp(8rem, 22vw, 24rem)',
-            color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.06)',
-            background:
-              'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 60%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
+            fontSize: 'clamp(9rem, 24vw, 26rem)',
+            color: 'rgba(255,255,255,0.035)',
+            WebkitTextStroke: '2.5px rgba(255,255,255,0.16)',
+            textShadow: '0 0 80px rgba(198,255,61,0.06)',
+            letterSpacing: '-0.02em',
           }}
         >
           DOCS
