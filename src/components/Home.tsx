@@ -131,7 +131,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
     <div className="relative w-full">
       {/* ─────────── HERO ─────────── */}
       <section className="relative min-h-screen flex flex-col justify-center px-6 lg:px-16 max-w-[1280px] mx-auto pt-24 pb-12">
-        {/* Giant background label — DOCS (Resolve, heavier stroke + soft fill) */}
+        {/* Giant background label — DOCS (pure white, transparent, bold stroke) */}
         <div
           aria-hidden
           className="pointer-events-none select-none absolute -top-4 right-0 lg:right-[-3rem] font-resolve leading-[0.78] z-0 whitespace-nowrap"
@@ -139,20 +139,27 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             fontSize: 'clamp(9rem, 24vw, 26rem)',
             color: 'rgba(255,255,255,0.035)',
             WebkitTextStroke: '2.5px rgba(255,255,255,0.16)',
-            textShadow: '0 0 80px rgba(198,255,61,0.06)',
             letterSpacing: '-0.02em',
           }}
         >
           DOCS
         </div>
 
-        {/* Eyebrow */}
+        {/* Eyebrow — pill chip with the Complex Studios logo */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="relative z-10 inline-flex items-center gap-3 mb-8 self-start"
+          className="relative z-10 inline-flex items-center gap-3 mb-8 self-start py-1.5 pl-1.5 pr-4 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md"
         >
+          <span className="w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center overflow-hidden">
+            <img
+              src="https://r2.fivemanage.com/kMtLpNIqKRhMGpzrcZnQY/cpxstu.png"
+              alt="Complex Studios"
+              className="w-5 h-5 object-contain"
+              loading="eager"
+            />
+          </span>
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-[#c6ff3d] opacity-75 animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[#c6ff3d]" />
