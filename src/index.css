@@ -1,5 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:italic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:italic&display=swap');
 @import "tailwindcss";
+
+/*
+ * Resolve Sans — Extrabold Italic (Fenotype). Used for the hero H1 and
+ * occasional accent words. The OTF ships as a single weight-800 italic
+ * cut, so the @font-face MUST declare those exact attributes or modern
+ * browsers refuse to match it.
+ */
+@font-face {
+  font-family: 'Resolve';
+  src: url('/fonts/resolve.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
 
 @theme {
   --color-cyan-vivid: #00e5ff;
@@ -28,6 +42,44 @@
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  /*
+   * Resolve Sans Extrabold Italic. Use sparingly — best for short, hero-sized
+   * headlines. Forces the matching weight + style so the browser actually
+   * loads the font instead of falling back.
+   */
+  .font-resolve {
+    font-family: 'Resolve', 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+
+  /* Multi-color animated gradient — same vibe as the main marketing site. */
+  .word-gradient {
+    background: linear-gradient(
+      45deg,
+      #c6ff3d 0%,
+      #67e8f9 25%,
+      #ffffff 50%,
+      #a78bfa 75%,
+      #c6ff3d 100%
+    );
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 6s ease infinite;
+    padding: 0 0.12em;
+    display: inline-block;
+  }
+
+  @keyframes gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
 

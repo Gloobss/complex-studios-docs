@@ -11,9 +11,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = 'cpx-docs-locale';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
+  // Default is Spanish — site is bilingual but the audience is mostly ES.
+  const [language, setLanguageState] = useState<Language>('es');
 
-  // Hydrate from localStorage / browser default after first paint
+  // Hydrate from localStorage after first paint. Browser language is only
+  // used to switch to English when the user is clearly English-speaking.
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -21,8 +23,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         setLanguageState(stored);
         return;
       }
-      const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
-      if (browser === 'es') setLanguageState('es');
+      const browser = (navigator.language || 'es').slice(0, 2).toLowerCase();
+      if (browser === 'en') setLanguageState('en');
     } catch {
       /* ignore — incognito mode etc. */
     }

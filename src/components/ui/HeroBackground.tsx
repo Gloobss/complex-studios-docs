@@ -70,28 +70,29 @@ export function HeroBackground() {
       aria-hidden
       className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-[#020202]"
     >
-      {/* Layer 1 — base grid, very subtle, always visible */}
-      <div className="absolute inset-0 opacity-[0.045] text-white">
+      {/* Layer 1 — base grid, visible but not screaming */}
+      <div className="absolute inset-0 opacity-[0.09] text-white">
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
 
       {/* Layer 2 — bright lima reveal that follows the cursor */}
       {!coarsePointer && (
         <motion.div
-          className="absolute inset-0 opacity-50 text-[#c6ff3d]"
+          className="absolute inset-0 opacity-90 text-[#c6ff3d]"
           style={{ maskImage, WebkitMaskImage: maskImage }}
         >
           <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
         </motion.div>
       )}
 
-      {/* Layer 3 — ambient color blobs (corners) */}
-      <div className="absolute -top-40 -right-40 w-[40rem] h-[40rem] rounded-full bg-[#c6ff3d]/[0.07] blur-[140px]" />
-      <div className="absolute -bottom-60 -left-40 w-[44rem] h-[44rem] rounded-full bg-sky-500/[0.06] blur-[160px]" />
+      {/* Layer 3 — ambient color blobs (corners). More saturated. */}
+      <div className="absolute -top-40 -right-40 w-[40rem] h-[40rem] rounded-full bg-[#c6ff3d]/[0.13] blur-[120px]" />
+      <div className="absolute -bottom-60 -left-40 w-[44rem] h-[44rem] rounded-full bg-sky-500/[0.10] blur-[140px]" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] rounded-full bg-violet-500/[0.05] blur-[120px]" />
 
-      {/* Layer 4 — top/bottom fades so the grid doesn't fight content edges */}
-      <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#020202] via-[#020202]/60 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent" />
+      {/* Layer 4 — softer top/bottom fades so the grid doesn't fight content edges */}
+      <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#020202]/80 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
     </div>
   );
 }
