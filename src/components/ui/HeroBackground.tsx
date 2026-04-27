@@ -7,15 +7,15 @@ import {
 } from 'motion/react';
 
 /**
- * Global background for the docs site.
- * - An infinite scrolling grid pattern (subtle, ~5% opacity).
- * - A radial reveal layer that lights up where the cursor is, in lima.
- * - Two ambient color blobs (lima + sky) blurred far in the corners.
+ * Global background for the docs site — "The Infinite Grid".
+ * Adapted verbatim from the user's snippet, with two adjustments:
+ *  - smoother scroll speed (0.15 instead of 0.5) so the lines drift slowly
+ *  - mounted as a fixed full-viewport layer behind every page (-z-20)
  *
- * Design constraints:
- * - Lives behind everything (-z-20). Pointer events disabled.
- * - Skipped on coarse pointer (touch) — no cursor reveal.
- * - Animation paused on prefers-reduced-motion.
+ * Behaviour:
+ *  - Cursor reveals a brighter grid layer through a radial mask.
+ *  - Three ambient blurred blobs (orange + lima primary + blue) for depth.
+ *  - Skipped on coarse pointers (touch) and respects prefers-reduced-motion.
  */
 export function HeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,34 +35,34 @@ export function HeroBackground() {
     setCoarsePointer(window.matchMedia('(pointer: coarse)').matches);
   }, []);
 
-  // Track cursor relative to viewport (the bg is fixed-position so client* is fine)
+  // Track cursor in viewport space (this layer is fixed so client* is correct)
   useEffect(() => {
     if (coarsePointer) return;
-    const handleMove = (e: MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
-    const handleLeave = () => {
+    const onLeave = () => {
       mouseX.set(-9999);
       mouseY.set(-9999);
     };
-    window.addEventListener('mousemove', handleMove, { passive: true });
-    document.addEventListener('mouseleave', handleLeave);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
     return () => {
-      window.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseleave', handleLeave);
+      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseleave', onLeave);
     };
   }, [coarsePointer, mouseX, mouseY]);
 
-  // Slow, infinite grid scroll. 40px tile so a wrap at 40 looks seamless.
-  const SPEED = 0.18;
+  // Smooth scroll: 0.15 instead of the snippet's 0.5 — lines drift slowly.
+  const SPEED = 0.15;
   useAnimationFrame(() => {
     if (reduced) return;
     gridOffsetX.set((gridOffsetX.get() + SPEED) % 40);
     gridOffsetY.set((gridOffsetY.get() + SPEED) % 40);
   });
 
-  const maskImage = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, black, transparent 70%)`;
+  const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
 
   return (
     <div
@@ -70,29 +70,31 @@ export function HeroBackground() {
       aria-hidden
       className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-[#020202]"
     >
-      {/* Layer 1 — base grid, visible but not screaming */}
-      <div className="absolute inset-0 opacity-[0.09] text-white">
+      {/* Base grid — discreet but visible */}
+      <div className="absolute inset-0 z-0 opacity-[0.10] text-white">
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
 
-      {/* Layer 2 — bright lima reveal that follows the cursor */}
+      {/* Cursor reveal — brighter layer masked to the cursor radius */}
       {!coarsePointer && (
         <motion.div
-          className="absolute inset-0 opacity-90 text-[#c6ff3d]"
+          className="absolute inset-0 z-0 opacity-50 text-white"
           style={{ maskImage, WebkitMaskImage: maskImage }}
         >
           <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
         </motion.div>
       )}
 
-      {/* Layer 3 — ambient color blobs (corners). More saturated. */}
-      <div className="absolute -top-40 -right-40 w-[40rem] h-[40rem] rounded-full bg-[#c6ff3d]/[0.13] blur-[120px]" />
-      <div className="absolute -bottom-60 -left-40 w-[44rem] h-[44rem] rounded-full bg-sky-500/[0.10] blur-[140px]" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] rounded-full bg-violet-500/[0.05] blur-[120px]" />
+      {/* Ambient blobs — orange / primary lima / blue */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full bg-orange-600/20 blur-[120px]" />
+        <div className="absolute right-[10%] top-[-10%] w-[20%] h-[20%] rounded-full bg-[#c6ff3d]/20 blur-[100px]" />
+        <div className="absolute left-[-10%] bottom-[-20%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px]" />
+      </div>
 
-      {/* Layer 4 — softer top/bottom fades so the grid doesn't fight content edges */}
-      <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#020202]/80 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
+      {/* Soft top/bottom fades so the grid doesn't fight page edges */}
+      <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#020202]/80 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
     </div>
   );
 }

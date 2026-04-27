@@ -308,6 +308,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-[#c6ff3d]"
             miniIcon={Command}
             miniLabel="laptop"
+            videoId="a0C0lolGTBs"
             onClick={() => onSelectDoc('laptop')}
           />
 
@@ -348,6 +349,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-violet-400"
             miniIcon={ImageIcon}
             miniLabel="frames"
+            videoId="dIa4zdEXM9c"
             onClick={() => onSelectDoc('frames')}
           />
         </div>
@@ -413,6 +415,7 @@ function ProductCard({
   shadowClass,
   buttonClass,
   titleHoverClass,
+  videoId,
   onClick,
 }: {
   name: string;
@@ -426,6 +429,7 @@ function ProductCard({
   shadowClass: string;
   buttonClass: string;
   titleHoverClass: string;
+  videoId?: string;
   onClick: () => void;
 }) {
   const { language } = useLanguage();
@@ -440,24 +444,48 @@ function ProductCard({
       className={`group flex flex-col rounded-[2rem] bg-[#080808]/80 backdrop-blur-xl border border-white/[0.06] overflow-hidden transition-all duration-500 ring-1 ring-white/[0.03] ${ringClass}`}
     >
       <div className="h-[260px] relative overflow-hidden bg-[#030303] flex items-center justify-center">
-        <div className={`absolute inset-0 bg-gradient-to-br opacity-50 group-hover:opacity-100 transition-opacity duration-700 from-current/[0.08] to-transparent`} />
-        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 blur-[110px] rounded-full pointer-events-none opacity-30 group-hover:opacity-50 transition-opacity duration-700 bg-gradient-to-br ${accentClass}`} />
+        {videoId ? (
+          <>
+            {/* YouTube thumbnail — fills the whole card head */}
+            <img
+              src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (!img.src.includes('hqdefault')) {
+                  img.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+                }
+              }}
+              alt={`${name} preview`}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            {/* Dark gradient so the corner label stays readable */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/55 pointer-events-none" />
+            {/* Accent wash on hover */}
+            <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 bg-gradient-to-br ${accentClass} mix-blend-soft-light pointer-events-none`} />
+          </>
+        ) : (
+          <>
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-50 group-hover:opacity-100 transition-opacity duration-700 from-current/[0.08] to-transparent`} />
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 blur-[110px] rounded-full pointer-events-none opacity-30 group-hover:opacity-50 transition-opacity duration-700 bg-gradient-to-br ${accentClass}`} />
+            <motion.div
+              className={`relative z-10 w-24 h-24 rounded-3xl bg-gradient-to-br ${iconBgClass} flex items-center justify-center ${shadowClass} group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]`}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay" />
+              <Icon className="w-10 h-10 text-black" strokeWidth={2} />
+            </motion.div>
+          </>
+        )}
 
-        <div className="absolute top-5 left-6 flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-lg bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg">
+        {/* Corner label — stays in both modes */}
+        <div className="absolute top-5 left-6 flex items-center gap-2.5 z-20">
+          <div className="w-9 h-9 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg">
             <MiniIcon className="w-4.5 h-4.5 text-white/85" strokeWidth={2} />
           </div>
           <span className="text-white/85 font-bold tracking-tight text-[15px] font-display uppercase">
             {miniLabel}
           </span>
         </div>
-
-        <motion.div
-          className={`relative z-10 w-24 h-24 rounded-3xl bg-gradient-to-br ${iconBgClass} flex items-center justify-center ${shadowClass} group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]`}
-        >
-          <div className="absolute inset-0 bg-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay" />
-          <Icon className="w-10 h-10 text-black" strokeWidth={2} />
-        </motion.div>
       </div>
 
       <div className="p-7 md:p-8 flex flex-col flex-1 relative z-10 bg-gradient-to-b from-[#080808]/0 to-[#050505]">
