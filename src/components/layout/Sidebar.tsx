@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Sun, Moon, Monitor, Command, Utensils, Laptop, Image as ImageIcon, ChevronDown, Home } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 
 const navSectionsList = [
@@ -50,10 +50,49 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
     [currentDoc]: true
   });
 
+  // Scrollspy — track which section[id] is currently in the upper viewport so
+  // the lima indicator slides between items as the user scrolls.
+  const [activeSection, setActiveSection] = useState<string>('');
+  const visibleRef = useRef<Set<string>>(new Set());
+
   useEffect(() => {
     if (currentDoc !== 'home') {
       setExpandedSections(prev => ({ ...prev, [currentDoc]: true }));
     }
+  }, [currentDoc]);
+
+  // Pull every navigable section id from the current sections list so the
+  // observer only reacts to entries that have a matching sidebar entry.
+  useEffect(() => {
+    if (currentDoc === 'home') {
+      setActiveSection('');
+      return;
+    }
+    visibleRef.current.clear();
+
+    const timer = setTimeout(() => {
+      const allIds = new Set(navSectionsList.flatMap((s) => s.items.map((i) => i.id)));
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) visibleRef.current.add(e.target.id);
+            else visibleRef.current.delete(e.target.id);
+          });
+          const sections = Array.from(document.querySelectorAll('section[id]')) as HTMLElement[];
+          const firstVisible = sections.find(
+            (s) => allIds.has(s.id) && visibleRef.current.has(s.id),
+          );
+          if (firstVisible) setActiveSection(firstVisible.id);
+        },
+        { rootMargin: '-15% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+      );
+
+      document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
+      return () => observer.disconnect();
+    }, 120);
+
+    return () => clearTimeout(timer);
   }, [currentDoc]);
 
   useEffect(() => {
@@ -193,8 +232,8 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
                               exit={{ opacity: 0, x: -10 }}
                               transition={{ duration: 0.2 }}
                             >
-                              <a 
-                                href={`#${item.id}`} 
+                              <a
+                                href={`#${item.id}`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   if (currentDoc !== section.docId) {
@@ -208,16 +247,26 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
                                   }
                                 }}
                                 className={`block px-3 py-2 text-[13.5px] rounded-xl transition-all duration-300 relative group overflow-hidden ${
-                                  currentDoc === section.docId
-                                    ? 'text-white font-medium'
-                                    : 'text-zinc-400 hover:text-white hover:bg-white/[0.03]'
+                                  activeSection === item.id
+                                    ? 'text-[#c6ff3d] font-semibold'
+                                    : currentDoc === section.docId
+                                      ? 'text-white font-medium hover:bg-white/[0.03]'
+                                      : 'text-zinc-400 hover:text-white hover:bg-white/[0.03]'
                                 }`}
                               >
-                                {currentDoc === section.docId && (
-                                  <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent pointer-events-none" />
+                                {activeSection === item.id && (
+                                  <motion.div
+                                    layoutId="sidebarActiveBg"
+                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                    className="absolute inset-0 bg-gradient-to-r from-[#c6ff3d]/10 to-transparent pointer-events-none rounded-xl"
+                                  />
                                 )}
-                                {currentDoc === section.docId && (
-                                  <motion.div layoutId="sidebarActive" className="absolute left-0 top-1 bottom-1 w-[3px] bg-[#c6ff3d] rounded-r shadow-[0_0_8px_rgba(198,255,61,0.5)]" />
+                                {activeSection === item.id && (
+                                  <motion.div
+                                    layoutId="sidebarActive"
+                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                    className="absolute left-0 top-1 bottom-1 w-[3px] bg-[#c6ff3d] rounded-r shadow-[0_0_10px_rgba(198,255,61,0.6)]"
+                                  />
                                 )}
                                 <span className="relative z-10">{item.label}</span>
                               </a>
