@@ -11,7 +11,7 @@ import {
   ArrowUpRight,
   MessageCircle,
 } from 'lucide-react';
-import type { DocType } from '../../App';
+import type { DocType } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
 import { brand } from '../lib/brand';
 

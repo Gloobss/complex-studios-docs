@@ -292,6 +292,83 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
           <CodeBlock code={`/restaurantbuilder`} />
         </motion.section>
 
+        {/* TROUBLESHOOTING */}
+        <motion.section
+          id="rest-troubleshoot"
+          className="mb-24 scroll-mt-[10vh]"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-white tracking-tight font-display mb-2">
+            {isEs ? 'Solución de problemas' : 'Troubleshooting'}
+          </h2>
+          <p className="text-[14px] text-zinc-500 mb-8">
+            {isEs ? 'Errores frecuentes y cómo resolverlos.' : 'Common issues and fixes.'}
+          </p>
+
+          <div className="space-y-6">
+            <Callout
+              type="warning"
+              title={
+                isEs
+                  ? 'No aparecen marcadores ni puntos en el mapa'
+                  : 'No markers or POIs show on the map'
+              }
+            >
+              {isEs
+                ? 'Confirma en la consola server que viste el log de auto-seed en el primer arranque. Si la BD ya tiene tablas pero está vacía, ejecuta /restaurantbuilder y crea uno desde cero. Revisa también que cpx-restaurants arranque después de tu inventario y de oxmysql.'
+                : 'Check the server console for the auto-seed log on first boot. If the DB has tables but is empty, run /restaurantbuilder and create one from scratch. Also ensure cpx-restaurants starts after your inventory and oxmysql.'}
+            </Callout>
+
+            <Callout
+              type="warning"
+              title={
+                isEs
+                  ? 'El comando /restaurantbuilder no responde'
+                  : 'The /restaurantbuilder command does nothing'
+              }
+            >
+              {isEs ? (
+                <>
+                  Asegúrate de tener el ACE permission añadido a tu identifier:
+                  <CodeBlock code={`add_ace identifier.fivem:xxxxx cpx-restaurants.builder allow`} />
+                  Reinicia el server después de añadirlo. El comando solo se registra para players con el permiso.
+                </>
+              ) : (
+                <>
+                  Make sure the ACE permission is granted to your identifier:
+                  <CodeBlock code={`add_ace identifier.fivem:xxxxx cpx-restaurants.builder allow`} />
+                  Restart the server after adding it. The command is only registered for players with the perm.
+                </>
+              )}
+            </Callout>
+
+            <Callout
+              type="warning"
+              title={
+                isEs
+                  ? 'El target no funciona / no aparecen las opciones'
+                  : 'Target does not work / no options appear'
+              }
+            >
+              {isEs
+                ? 'cpx-restaurants soporta cpx (built-in), ox_target y qb-target. En Config.target.system pon el que uses, o déjalo en "auto" para que detecte solo. Si tienes varios cargados, gana el primero detectado.'
+                : 'cpx-restaurants supports cpx (built-in), ox_target and qb-target. Set Config.target.system to the one you use, or leave it on "auto" for autodetect. If multiple are loaded the first one detected wins.'}
+            </Callout>
+
+            <Callout
+              type="info"
+              title={isEs ? 'Logs de Discord vacíos' : 'Empty Discord logs'}
+            >
+              {isEs
+                ? 'Los webhooks viven en Config.logs.* del archivo main.lua. Pega el webhook completo dentro del string del módulo correspondiente y reinicia el resource.'
+                : 'Webhooks live in Config.logs.* of main.lua. Paste the full webhook into the relevant module string and restart the resource.'}
+            </Callout>
+          </div>
+        </motion.section>
+
         <DocFooter
           lastUpdated="27/4/26"
           prev={{ title: 'CPX Laptop', doc: 'laptop' }}

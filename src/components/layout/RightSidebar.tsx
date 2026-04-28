@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import type { DocType } from '../../App';
@@ -26,7 +26,7 @@ const getRightTocs = (isEs: boolean) => ({
   ],
 });
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -34,7 +34,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, x: 10 },
   show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
 };
@@ -174,8 +174,8 @@ export function RightSidebar({ currentDoc }: { currentDoc: DocType }) {
           glowColor="rgba(88,101,242,0.45)"
         />
         <CTAWord
-          text="Server"
-          href={brand.urls.server}
+          text={isEs ? 'Sitio' : 'Site'}
+          href={brand.urls.mainSite}
           hoverColor="#c6ff3d"
           glowColor="rgba(198,255,61,0.45)"
         />

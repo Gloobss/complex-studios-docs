@@ -1,54 +1,86 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Sun, Moon, Monitor, Command, Utensils, Laptop, Image as ImageIcon, ChevronDown, Home } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, ChevronDown, Home } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
+import { useLanguage } from '../../contexts/LanguageContext';
 
-const navSectionsList = [
+type NavSection = {
+  docId: 'laptop' | 'restaurants' | 'frames';
+  title: string;
+  icon: typeof Laptop;
+  items: { id: string; label: string }[];
+};
+
+/**
+ * Build the sidebar tree in the active language. Centralised here so the
+ * scrollspy observer can reach all section ids regardless of the current doc.
+ */
+const buildNavSections = (isEs: boolean): NavSection[] => [
   {
-    docId: 'laptop' as const,
+    docId: 'laptop',
     title: 'CPX LAPTOP',
     icon: Laptop,
     items: [
-      { id: 'laptop-intro', label: 'Introduction' },
-      { id: 'laptop-features', label: 'Features' },
-      { id: 'laptop-install', label: 'Installation' },
-      { id: 'laptop-config', label: 'Configuration' },
-      { id: 'laptop-troubleshoot', label: 'Troubleshooting' },
-    ]
+      { id: 'laptop-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'laptop-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'laptop-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'laptop-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'laptop-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
   },
   {
-    docId: 'restaurants' as const,
+    docId: 'restaurants',
     title: 'CPX RESTAURANTS',
     icon: Utensils,
     items: [
-      { id: 'rest-intro', label: 'Introduction' },
-      { id: 'rest-features', label: 'Features' },
-      { id: 'rest-install', label: 'Installation' },
-      { id: 'rest-config', label: 'Configuration' },
-      { id: 'rest-builder', label: 'In-game editor' },
-    ]
+      { id: 'rest-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'rest-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'rest-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'rest-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'rest-builder',      label: isEs ? 'Editor in-game'         : 'In-game editor' },
+      { id: 'rest-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
   },
   {
-    docId: 'frames' as const,
+    docId: 'frames',
     title: 'CPX FRAMES',
     icon: ImageIcon,
     items: [
-      { id: 'frames-intro', label: 'Introduction' },
-      { id: 'frames-features', label: 'Features' },
-      { id: 'frames-install', label: 'Installation' },
-      { id: 'frames-config', label: 'Configuration' },
-      { id: 'frames-troubleshoot', label: 'Troubleshooting' },
-    ]
-  }
+      { id: 'frames-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'frames-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'frames-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'frames-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'frames-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
-export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { currentDoc: 'laptop' | 'restaurants' | 'frames' | 'home', onSelectDoc: (d: DocType) => void, isMobile?: boolean }) {
-  const [themeMode, setThemeMode] = useState<'system'|'dark'|'light'>('dark');
+export function Sidebar({
+  currentDoc,
+  onSelectDoc,
+  isMobile = false,
+}: {
+  currentDoc: 'laptop' | 'restaurants' | 'frames' | 'home';
+  onSelectDoc: (d: DocType) => void;
+  isMobile?: boolean;
+}) {
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  const navSectionsList = buildNavSections(isEs);
+
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    [currentDoc]: true
+    [currentDoc]: true,
   });
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Detect Mac so the kbd hint matches the user's actual modifier.
+  const [isMac, setIsMac] = useState(false);
+  useEffect(() => {
+    if (typeof navigator === 'undefined') return;
+    setIsMac(/Mac|iPhone|iPod|iPad/.test(navigator.platform));
+  }, []);
 
   // Scrollspy — track which section[id] is currently in the upper viewport so
   // the lima indicator slides between items as the user scrolls.
@@ -57,12 +89,10 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
 
   useEffect(() => {
     if (currentDoc !== 'home') {
-      setExpandedSections(prev => ({ ...prev, [currentDoc]: true }));
+      setExpandedSections((prev) => ({ ...prev, [currentDoc]: true }));
     }
   }, [currentDoc]);
 
-  // Pull every navigable section id from the current sections list so the
-  // observer only reacts to entries that have a matching sidebar entry.
   useEffect(() => {
     if (currentDoc === 'home') {
       setActiveSection('');
@@ -93,34 +123,37 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
     }, 120);
 
     return () => clearTimeout(timer);
-  }, [currentDoc]);
+  }, [currentDoc, isEs]);
 
+  // Cmd/Ctrl + K → focus the search input, plus Esc to clear.
   useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-
-    if (themeMode === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      root.classList.add(systemTheme);
-    } else {
-      root.classList.add(themeMode);
-    }
-  }, [themeMode]);
+    const onKey = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      if ((e.metaKey || e.ctrlKey) && key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      } else if (key === 'escape' && document.activeElement === searchInputRef.current) {
+        searchInputRef.current?.blur();
+        setSearchQuery('');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const toggleSection = (docId: string) => {
-    setExpandedSections(prev => ({ ...prev, [docId]: !prev[docId] }));
+    setExpandedSections((prev) => ({ ...prev, [docId]: !prev[docId] }));
   };
 
   return (
-    <motion.aside 
+    <motion.aside
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`w-72 flex-col overflow-hidden flex-shrink-0 sticky top-4 z-20 ${
-        isMobile 
-          ? 'h-full bg-transparent flex border-r border-white/[0.05]' 
+        isMobile
+          ? 'h-full bg-transparent flex border-r border-white/[0.05]'
           : 'h-[calc(100vh-2rem)] my-4 ml-4 bg-[#080808]/95 backdrop-blur-xl border border-white/[0.05] flex rounded-[1.5rem] shadow-2xl'
       }`}
     >
@@ -138,11 +171,22 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
 
         <div className="flex flex-col gap-3 mb-4">
           {/* Search Bar */}
-          <div className={`relative flex items-center bg-[#141414] border transition-colors duration-300 rounded-xl overflow-hidden ${isSearchFocused ? 'border-[#c6ff3d]/50 shadow-[0_0_15px_rgba(198,255,61,0.1)]' : 'border-white/[0.05]'}`}>
-            <Search className={`w-4 h-4 ml-3 transition-colors ${isSearchFocused ? 'text-[#c6ff3d]' : 'text-zinc-500'}`} />
-            <input 
+          <div
+            className={`relative flex items-center bg-[#141414] border transition-colors duration-300 rounded-xl overflow-hidden ${
+              isSearchFocused
+                ? 'border-[#c6ff3d]/50 shadow-[0_0_15px_rgba(198,255,61,0.1)]'
+                : 'border-white/[0.05]'
+            }`}
+          >
+            <Search
+              className={`w-4 h-4 ml-3 transition-colors ${
+                isSearchFocused ? 'text-[#c6ff3d]' : 'text-zinc-500'
+              }`}
+            />
+            <input
+              ref={searchInputRef}
               type="text"
-              placeholder="Search documentation..."
+              placeholder={isEs ? 'Buscar en la documentación…' : 'Search documentation…'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
@@ -151,26 +195,9 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
             />
             <div className="mr-3 flex gap-1">
               <kbd className="hidden sm:inline-flex items-center gap-1 bg-[#222] border border-white/[0.05] rounded px-1.5 py-0.5 text-[10px] font-mono text-zinc-400">
-                ⌘ K
+                {isMac ? '⌘ K' : 'Ctrl K'}
               </kbd>
             </div>
-          </div>
-
-          {/* Theme toggles */}
-          <div className="flex bg-[#141414] border border-white/[0.05] rounded-xl p-1 w-full justify-between relative overflow-hidden">
-             {themeMode === 'light' && <motion.div layoutId="themetoggle" className="absolute top-1 bottom-1 left-1 w-[calc(33.33%-4px)] bg-[#2a2a2a] rounded-lg" />}
-             {themeMode === 'dark' && <motion.div layoutId="themetoggle" className="absolute top-1 bottom-1 left-[calc(33.33%+2px)] w-[calc(33.33%-4px)] bg-[#2a2a2a] rounded-lg" />}
-             {themeMode === 'system' && <motion.div layoutId="themetoggle" className="absolute top-1 bottom-1 right-1 w-[calc(33.33%-4px)] bg-[#2a2a2a] rounded-lg" />}
-             
-             <button onClick={() => setThemeMode('light')} className={`z-10 p-1.5 rounded-lg flex-1 flex justify-center items-center transition-colors ${themeMode === 'light' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>
-               <Sun className="w-3.5 h-3.5" />
-             </button>
-             <button onClick={() => setThemeMode('dark')} className={`z-10 p-1.5 rounded-lg flex-1 flex justify-center items-center transition-colors ${themeMode === 'dark' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>
-               <Moon className="w-3.5 h-3.5" />
-             </button>
-             <button onClick={() => setThemeMode('system')} className={`z-10 p-1.5 rounded-lg flex-1 flex justify-center items-center transition-colors ${themeMode === 'system' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>
-               <Monitor className="w-3.5 h-3.5" />
-             </button>
           </div>
         </div>
       </div>
@@ -180,39 +207,48 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
         <AnimatePresence>
           {navSectionsList.map((section, sIdx) => {
             const lowerQuery = searchQuery.toLowerCase();
-            const hasMatchingItems = section.items.some(item => item.label.toLowerCase().includes(lowerQuery));
+            const hasMatchingItems = section.items.some((item) =>
+              item.label.toLowerCase().includes(lowerQuery),
+            );
             const hasMatchingTitle = section.title.toLowerCase().includes(lowerQuery);
-            
+
             if (searchQuery.length > 0 && !hasMatchingItems && !hasMatchingTitle) {
               return null;
             }
 
-            const isExpanded = searchQuery.length > 0
-              ? hasMatchingItems || hasMatchingTitle
-              : expandedSections[section.docId];
+            const isExpanded =
+              searchQuery.length > 0
+                ? hasMatchingItems || hasMatchingTitle
+                : expandedSections[section.docId];
 
             return (
-              <motion.div 
+              <motion.div
                 key={sIdx}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, height: 0 }}
               >
                 {section.title && (
-                  <div 
+                  <div
                     onClick={() => toggleSection(section.docId)}
-                    className={`flex items-center justify-between text-[11px] font-bold tracking-widest text-[#666] uppercase mb-3 px-2 cursor-pointer transition-colors hover:text-zinc-400 ${isExpanded ? 'text-zinc-400' : ''}`}
+                    className={`flex items-center justify-between text-[11px] font-bold tracking-widest text-[#666] uppercase mb-3 px-2 cursor-pointer transition-colors hover:text-zinc-400 ${
+                      isExpanded ? 'text-zinc-400' : ''
+                    }`}
                   >
                     <div className="flex items-center gap-2">
                       {section.icon && <section.icon className="w-3.5 h-3.5" />}
                       {section.title}
                     </div>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isExpanded ? 'text-zinc-400 rotate-180' : 'text-zinc-600'}`} />
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform ${
+                        isExpanded ? 'text-zinc-400 rotate-180' : 'text-zinc-600'
+                      }`}
+                    />
                   </div>
                 )}
                 <AnimatePresence initial={false}>
                   {isExpanded && (
-                    <motion.ul 
+                    <motion.ul
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -221,11 +257,12 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
                     >
                       <AnimatePresence>
                         {section.items.map((item) => {
-                          const isVisible = item.label.toLowerCase().includes(lowerQuery) || hasMatchingTitle;
+                          const isVisible =
+                            item.label.toLowerCase().includes(lowerQuery) || hasMatchingTitle;
                           if (searchQuery && !isVisible) return null;
-      
+
                           return (
-                            <motion.li 
+                            <motion.li
                               key={item.id}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -240,10 +277,14 @@ export function Sidebar({ currentDoc, onSelectDoc, isMobile = false }: { current
                                     onSelectDoc(section.docId);
                                     // small delay to allow react to render the new component before scrolling
                                     setTimeout(() => {
-                                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                                      document
+                                        .getElementById(item.id)
+                                        ?.scrollIntoView({ behavior: 'smooth' });
                                     }, 100);
                                   } else {
-                                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                                    document
+                                      .getElementById(item.id)
+                                      ?.scrollIntoView({ behavior: 'smooth' });
                                   }
                                 }}
                                 className={`block px-3 py-2 text-[13.5px] rounded-xl transition-all duration-300 relative group overflow-hidden ${
