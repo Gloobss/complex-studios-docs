@@ -289,6 +289,79 @@ export const restaurantsMainSchema: ConfigSchema = {
         { id: 'builder_autoSeed', type: 'boolean', label: { en: 'Auto-seed restaurants on first boot', es: 'Auto-cargar restaurantes en primer arranque' }, default: true },
       ],
     },
+
+    {
+      id: 'pricing',
+      type: 'group',
+      label: { en: 'Economy & pricing', es: 'Economía y precios' },
+      description: {
+        en: 'Global multipliers and base pay. Per-recipe values still come from the database (recipes table).',
+        es: 'Multiplicadores globales y pago base. Los valores por receta siguen en la BD (tabla de recetas).',
+      },
+      collapsed: true,
+      fields: [
+        { id: 'ingredient_cost_mult',   type: 'number',  label: { en: 'Ingredient cost ×',  es: 'Multiplicador coste ingredientes' }, default: 1.0, min: 0.1, max: 10, step: 0.05 },
+        { id: 'product_price_mult',     type: 'number',  label: { en: 'Product price ×',    es: 'Multiplicador precio productos'  }, default: 1.0, min: 0.1, max: 10, step: 0.05 },
+        { id: 'delivery_base_pay',      type: 'slider',  label: { en: 'Delivery base pay ($)', es: 'Pago base delivery ($)'        }, default: 250, min: 50, max: 2000, step: 25 },
+        { id: 'delivery_tip_min',       type: 'slider',  label: { en: 'Customer tip min ($)',  es: 'Propina cliente mín ($)'       }, default: 20,  min: 0,  max: 500,  step: 5 },
+        { id: 'delivery_tip_max',       type: 'slider',  label: { en: 'Customer tip max ($)',  es: 'Propina cliente máx ($)'       }, default: 80,  min: 0,  max: 500,  step: 5 },
+      ],
+    },
+
+    {
+      id: 'ingredients',
+      type: 'group',
+      label: { en: 'Global ingredients', es: 'Ingredientes globales' },
+      description: {
+        en: 'Common ingredients shared across recipes. Format per row: "item_id | Label | price". Price is per unit. Lines that don\'t parse get commented out.',
+        es: 'Ingredientes compartidos por todas las recetas. Formato por fila: "item_id | Etiqueta | precio". Precio por unidad. Líneas sin formato válido se comentan.',
+      },
+      collapsed: true,
+      fields: [
+        {
+          id: 'global_ingredients',
+          type: 'array-string',
+          label: { en: 'Ingredients', es: 'Ingredientes' },
+          default: [
+            'flour | Flour | 5',
+            'water | Water | 1',
+            'sugar | Sugar | 4',
+            'salt | Salt | 2',
+            'meat | Raw Meat | 18',
+            'cheese | Cheese | 12',
+            'tomato | Tomato | 6',
+            'lettuce | Lettuce | 4',
+          ],
+          itemPlaceholder: 'item_id | Label | price',
+        },
+      ],
+    },
+
+    {
+      id: 'deliveryLocations',
+      type: 'group',
+      label: { en: 'Delivery locations', es: 'Ubicaciones de entrega' },
+      description: {
+        en: 'NPC delivery destinations. Format per row: "x, y, z | Label". Lines that don\'t parse get commented out.',
+        es: 'Destinos de delivery NPC. Formato por fila: "x, y, z | Etiqueta". Líneas sin formato válido se comentan.',
+      },
+      collapsed: true,
+      fields: [
+        {
+          id: 'delivery_locations',
+          type: 'array-string',
+          label: { en: 'Locations', es: 'Ubicaciones' },
+          default: [
+            '-1234.56, 789.0, 23.4 | Vinewood',
+            '120.5, -1830.2, 30.1 | Davis',
+            '-3050.0, 580.1, 7.4 | Paleto Bay',
+            '95.0, -1290.5, 29.3 | Strawberry',
+            '-1820.0, -640.0, 11.0 | Del Perro',
+          ],
+          itemPlaceholder: 'x, y, z | Label',
+        },
+      ],
+    },
   ],
 
   toLua(v) {
@@ -416,9 +489,54 @@ Config.fallbackImages = {
     },`);
     out.push(`}\n`);
 
-    out.push(luaSection('Delivery NPC locations & peds — edit manually'));
-    out.push(`-- See the original config/main.lua shipped with the resource for the
--- full list. Keeping the defaults in-place will work out of the box.`);
+    out.push(luaSection('Economy & Pricing'));
+    out.push(`Config.economy = {`);
+    out.push(`    ingredientCostMultiplier = ${luaNumber(v.ingredient_cost_mult)},`);
+    out.push(`    productPriceMultiplier   = ${luaNumber(v.product_price_mult)},`);
+    out.push(`}`);
+    out.push(`Config.deliveryPay = {`);
+    out.push(`    base   = ${luaNumber(v.delivery_base_pay)},`);
+    out.push(`    tipMin = ${luaNumber(v.delivery_tip_min)},`);
+    out.push(`    tipMax = ${luaNumber(v.delivery_tip_max)},`);
+    out.push(`}\n`);
+
+    out.push(luaSection('Global Ingredients'));
+    out.push(`Config.ingredients = {`);
+    const ingRows = (v.global_ingredients as string[]) || [];
+    ingRows.forEach((raw) => {
+      const line = String(raw).trim();
+      if (!line) return;
+      // Expected: "item_id | Label | price"
+      const parts = line.split('|').map((s) => s.trim());
+      if (parts.length >= 3 && parts[0] && parts[1] && !Number.isNaN(parseFloat(parts[2]))) {
+        const [id, label, priceStr] = parts;
+        const price = parseFloat(priceStr);
+        out.push(`    { id = ${luaString(id)}, label = ${luaString(label)}, price = ${luaNumber(price)} },`);
+      } else {
+        out.push(`    -- TODO invalid format -> ${line}`);
+      }
+    });
+    out.push(`}\n`);
+
+    out.push(luaSection('Delivery NPC Locations'));
+    out.push(`Config.deliveryLocations = {`);
+    const dlRows = (v.delivery_locations as string[]) || [];
+    dlRows.forEach((raw) => {
+      const line = String(raw).trim();
+      if (!line) return;
+      // Expected: "x, y, z | Label"
+      const m = line.match(/^\s*(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)\s*\|\s*(.+)$/);
+      if (m) {
+        const [, x, y, z, label] = m;
+        out.push(`    { coords = vector3(${parseFloat(x)}, ${parseFloat(y)}, ${parseFloat(z)}), label = ${luaString(label.trim())} },`);
+      } else {
+        out.push(`    -- TODO invalid format -> ${line}`);
+      }
+    });
+    out.push(`}\n`);
+
+    out.push(`-- Per-restaurant peds and additional delivery flows live in the database`);
+    out.push(`-- and can be edited in-game with /restaurantbuilder.`);
 
     return out.join('\n');
   },

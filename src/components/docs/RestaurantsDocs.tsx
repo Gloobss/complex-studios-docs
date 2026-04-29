@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import {
   Package,
-  Utensils,
   ChefHat,
   Truck,
   Trophy,
@@ -11,6 +10,8 @@ import {
   Settings2,
   Hammer,
   Languages,
+  Coins,
+  MapPin,
 } from 'lucide-react';
 import { Callout } from '../ui/Callout';
 import { Step } from '../ui/Step';
@@ -18,6 +19,7 @@ import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
 import { ConfigGenerator } from '../ui/ConfigGenerator';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { restaurantsConfigSchemas } from '../../lib/configs/restaurants-config';
 import { useLanguage } from '../../contexts/LanguageContext';
 import type { DocType } from '../../App';
@@ -56,22 +58,11 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
             : 'Advanced culinary system: stations, multi-step recipes, classic and customer deliveries, XP progression and an in-game editor.'}
         </p>
 
-        {/* No video yet — gradient hero placeholder */}
-        <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-amber-500/20 bg-gradient-to-br from-amber-500/15 via-orange-500/10 to-amber-700/20 flex items-center justify-center">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.04] mix-blend-overlay" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-amber-500/30 blur-[120px] rounded-full" />
-          <div className="relative z-10 flex flex-col items-center gap-4 text-center px-6">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shadow-[0_0_60px_rgba(245,158,11,0.5)]">
-              <Utensils className="w-10 h-10 text-black" strokeWidth={2.5} />
-            </div>
-            <span className="text-white/90 font-display text-2xl tracking-tight uppercase">
-              CPX Restaurants
-            </span>
-            <span className="text-amber-400/80 text-xs font-mono uppercase tracking-[0.3em]">
-              {isEs ? 'Demo en video — próximamente' : 'Video demo — coming soon'}
-            </span>
-          </div>
-        </div>
+        <YouTubeHero
+          videoId="ybhdrZsjqtg"
+          title="CPX Restaurants"
+          accent={ACCENT}
+        />
 
         {/* INTRO */}
         <motion.section
@@ -186,6 +177,24 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
                 colorClass: 'text-amber-400',
                 bgClass: 'bg-amber-500/10',
               },
+              {
+                icon: Coins,
+                title: isEs ? 'Economía configurable' : 'Configurable economy',
+                description: isEs
+                  ? 'Multiplicadores globales de coste de ingredientes y precio de productos. Pago base + propinas configurables.'
+                  : 'Global multipliers for ingredient cost and product price. Configurable base pay + tips.',
+                colorClass: 'text-amber-400',
+                bgClass: 'bg-amber-500/10',
+              },
+              {
+                icon: MapPin,
+                title: isEs ? 'Delivery editable' : 'Editable delivery points',
+                description: isEs
+                  ? 'Lista de ubicaciones de entrega editables desde el builder. Más puntos = más rutas para los repartidores.'
+                  : 'Delivery destinations editable from the builder. More spots = more routes for deliverers.',
+                colorClass: 'text-amber-400',
+                bgClass: 'bg-amber-500/10',
+              },
             ]}
           />
         </motion.section>
@@ -264,6 +273,30 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
           </p>
 
           <ConfigGenerator schemas={restaurantsConfigSchemas} accent={ACCENT} />
+
+          <Callout type="info" title={isEs ? 'Novedades v1.11+' : "What's new in v1.11+"}>
+            {isEs ? (
+              <>
+                Tres nuevos grupos en <code>main.lua</code> totalmente editables desde el builder:
+                <ul className="mt-3 space-y-1.5 list-disc pl-5 text-[14.5px]">
+                  <li><b>Economía y precios</b> — multiplicadores globales para coste de ingredientes / precio de productos, pago base por delivery y rango de propinas.</li>
+                  <li><b>Ingredientes globales</b> — añade ingredientes compartidos por todas las recetas con su precio por unidad.</li>
+                  <li><b>Ubicaciones de entrega</b> — coordenadas + etiqueta para los puntos de delivery NPC. Una por línea.</li>
+                </ul>
+                <p className="mt-3">El builder valida el formato y comenta las líneas mal escritas en el output, así no rompes el resource si te equivocas en una coma.</p>
+              </>
+            ) : (
+              <>
+                Three new groups in <code>main.lua</code>, fully editable from the builder:
+                <ul className="mt-3 space-y-1.5 list-disc pl-5 text-[14.5px]">
+                  <li><b>Economy & pricing</b> — global multipliers for ingredient cost / product price, delivery base pay and tip range.</li>
+                  <li><b>Global ingredients</b> — shared ingredients across recipes with per-unit price.</li>
+                  <li><b>Delivery locations</b> — coords + label for NPC delivery points. One per line.</li>
+                </ul>
+                <p className="mt-3">The builder validates the format and comments out malformed lines in the output, so a stray comma never breaks your resource.</p>
+              </>
+            )}
+          </Callout>
 
           <Callout type="info" title={isEs ? 'Sobre animations.lua' : 'About animations.lua'}>
             {isEs

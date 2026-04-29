@@ -334,6 +334,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-amber-400"
             miniIcon={Utensils}
             miniLabel="restaurants"
+            videoId="ybhdrZsjqtg"
             onClick={() => onSelectDoc('restaurants')}
           />
 
