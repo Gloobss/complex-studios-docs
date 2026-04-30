@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import {
   Laptop,
@@ -14,6 +15,7 @@ import {
 import type { DocType } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
 import { brand } from '../lib/brand';
+import { VisitorCounter } from './ui/VisitorCounter';
 
 /* ---------------------------------------------------------------------------
  * BlurWord — same letter-by-letter blur entry the marketing site uses, but
@@ -246,11 +248,12 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
           transition={{ duration: 0.9, delay: 1.1 }}
           className="relative z-10 mt-20 flex items-start gap-10 lg:gap-16 flex-wrap"
         >
-          {[
+          {([
             { value: '3', label: isEs ? 'productos documentados' : 'products documented' },
             { value: 'ES · EN', label: isEs ? 'soporte bilingüe' : 'bilingual support' },
             { value: '100%', label: isEs ? 'Lua válido garantizado' : 'guaranteed valid Lua' },
-          ].map((s, i) => (
+            { value: <VisitorCounter />, label: isEs ? 'visitas a la documentación' : 'documentation visits' },
+          ] as { value: ReactNode; label: string }[]).map((s, i) => (
             <div key={s.label} className="flex flex-col gap-1.5">
               <span
                 className={`text-2xl md:text-3xl font-display text-white ${i === 0 ? 'word-gradient' : ''}`}
