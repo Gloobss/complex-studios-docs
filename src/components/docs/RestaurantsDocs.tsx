@@ -12,6 +12,8 @@ import {
   Languages,
   Coins,
   MapPin,
+  Laptop,
+  ArrowRight,
 } from 'lucide-react';
 import { Callout } from '../ui/Callout';
 import { Step } from '../ui/Step';
@@ -208,9 +210,56 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold text-white tracking-tight font-display mb-8">
+          <h2 className="text-3xl font-bold text-white tracking-tight font-display mb-6">
             {isEs ? 'Instalación' : 'Installation'}
           </h2>
+
+          {/* Hard dependency notice — Restaurants runs as an app inside CPX Laptop */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 p-6 rounded-2xl border border-[#c6ff3d]/25 bg-gradient-to-br from-[#c6ff3d]/[0.08] via-[#c6ff3d]/[0.02] to-transparent flex flex-col md:flex-row gap-5 items-start md:items-center relative overflow-hidden"
+          >
+            <div className="absolute -top-20 -left-20 w-60 h-60 bg-[#c6ff3d]/[0.07] blur-[80px] rounded-full pointer-events-none" />
+
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c6ff3d] to-[#8de000] flex items-center justify-center shadow-[0_0_30px_rgba(198,255,61,0.3)] shrink-0 relative z-10">
+              <Laptop className="w-6 h-6 text-black" strokeWidth={2.5} />
+            </div>
+
+            <div className="flex-1 relative z-10">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#c6ff3d]">
+                  {isEs ? 'Dependencia obligatoria' : 'Hard dependency'}
+                </span>
+              </div>
+              <h3 className="text-[17px] font-bold text-white mb-1.5 tracking-tight font-display">
+                {isEs ? 'CPX Restaurants es una app de CPX Laptop' : 'CPX Restaurants is a CPX Laptop app'}
+              </h3>
+              <p className="text-[14px] text-zinc-400 leading-relaxed">
+                {isEs
+                  ? 'Restaurants vive dentro de la laptop. Antes de seguir con esta instalación, asegúrate de tener CPX Laptop ya corriendo en tu servidor — sin la laptop, las apps de Restaurants no aparecen.'
+                  : 'Restaurants lives inside the laptop. Before continuing with this install, make sure CPX Laptop is already running on your server — without the laptop, the Restaurants apps will not appear.'}
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                onSelectDoc('laptop');
+                setTimeout(() => {
+                  document
+                    .getElementById('laptop-install')
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }, 140);
+              }}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#c6ff3d] hover:bg-[#b0f020] text-black font-bold text-[13.5px] transition-all shadow-[0_0_25px_rgba(198,255,61,0.3)] hover:shadow-[0_0_35px_rgba(198,255,61,0.5)] whitespace-nowrap relative z-10 group"
+            >
+              <Laptop className="w-4 h-4" strokeWidth={2.5} />
+              {isEs ? 'Instalar la laptop primero' : 'Install the laptop first'}
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.5} />
+            </button>
+          </motion.div>
 
           <Step number={1} title={isEs ? 'Pre-requisitos' : 'Pre-requirements'}>
             <p className="mb-4 text-[15px]">
