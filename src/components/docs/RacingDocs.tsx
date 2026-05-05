@@ -22,8 +22,7 @@ import { Step } from '../ui/Step';
 import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
-// import { YouTubeHero } from '../ui/YouTubeHero'; // Re-enable when the YouTube walkthrough is live.
-import { Play } from 'lucide-react';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { useLanguage } from '../../contexts/LanguageContext';
 import type { DocType } from '../../App';
 
@@ -61,12 +60,11 @@ export function RacingDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => voi
             : 'Complete street-racing system: tracks, events, leaderboards, garage, parts marketplace, weekly time-trial and an in-world race HUD. All living inside the laptop.'}
         </p>
 
-        {/*
-          Walkthrough video pending upload. Once the YouTube link is ready,
-          drop the ID below and remove the placeholder block.
-          Example: <YouTubeHero videoId="abc123XYZ" title="CPX Racing Hub" accent={ACCENT} />
-        */}
-        <RacingHeroPlaceholder isEs={isEs} accent={ACCENT} />
+        <YouTubeHero
+          videoId="Izaz99PDIiw"
+          title="CPX Racing Hub"
+          accent={ACCENT}
+        />
 
         {/* INTRO */}
         <motion.section
@@ -526,53 +524,3 @@ Config.Permissions = {
   );
 }
 
-// Temporary stand-in until the walkthrough video is uploaded. Mirrors the
-// aspect ratio and rounded shell of <YouTubeHero> so the layout doesn't shift
-// when we swap in the real one.
-function RacingHeroPlaceholder({ isEs, accent }: { isEs: boolean; accent: string }) {
-  return (
-    <div
-      className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] bg-gradient-to-br from-[#1a1410] via-[#0c0a08] to-black flex items-center justify-center"
-      style={{ ['--accent' as any]: accent }}
-    >
-      {/* Diagonal racing stripes */}
-      <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(135deg, #fff 0 1px, transparent 1px 14px)',
-        }}
-      />
-      {/* Glow */}
-      <div
-        className="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-[100px] pointer-events-none"
-        style={{ background: `${accent}22` }}
-      />
-
-      <div className="relative z-10 flex flex-col items-center gap-5 px-6 text-center">
-        <div
-          className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,214,90,0.35)]"
-          style={{ background: accent }}
-        >
-          <Play className="w-9 h-9 text-black" strokeWidth={2.5} fill="currentColor" />
-        </div>
-        <div>
-          <p
-            className="text-[11px] font-mono uppercase tracking-[0.35em] mb-2"
-            style={{ color: accent }}
-          >
-            {isEs ? 'Vídeo en producción' : 'Walkthrough coming soon'}
-          </p>
-          <p className="text-white text-lg md:text-xl font-display font-bold tracking-tight">
-            CPX Racing Hub
-          </p>
-          <p className="text-zinc-500 text-[13.5px] mt-1 max-w-md">
-            {isEs
-              ? 'Pronto subimos el walkthrough completo. Mientras tanto, mirá las características y la guía de instalación más abajo.'
-              : "Full walkthrough uploading shortly. In the meantime, scroll down for the feature tour and install guide."}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
