@@ -454,7 +454,7 @@ export function RestaurantsDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) =
         <DocFooter
           lastUpdated="27/4/26"
           prev={{ title: 'CPX Laptop', doc: 'laptop' }}
-          next={{ title: 'CPX Frames', doc: 'frames' }}
+          next={{ title: 'CPX Racing Hub', doc: 'racing' }}
           onSelectDoc={onSelectDoc}
           accentColor="amber"
         />

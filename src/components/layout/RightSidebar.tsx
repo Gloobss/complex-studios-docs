@@ -18,6 +18,14 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'rest-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'rest-builder', label: isEs ? 'Constructor Avanzado' : 'Advanced Builder' },
   ],
+  racing: [
+    { id: 'racing-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'racing-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'racing-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'racing-config', label: isEs ? 'Configuración' : 'Configuration' },
+    { id: 'racing-admin', label: isEs ? 'Editor in-game' : 'In-game editor' },
+    { id: 'racing-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
   frames: [
     { id: 'frames-intro', label: isEs ? 'Resumen' : 'Features Overview' },
     { id: 'frames-install', label: isEs ? 'Instalación' : 'Installation' },

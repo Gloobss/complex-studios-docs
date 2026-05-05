@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, ChevronDown, Home } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'frames';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -42,6 +42,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
     ],
   },
   {
+    docId: 'racing',
+    title: 'CPX RACING HUB',
+    icon: Flag,
+    items: [
+      { id: 'racing-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'racing-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'racing-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'racing-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'racing-admin',        label: isEs ? 'Editor in-game'         : 'In-game editor' },
+      { id: 'racing-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
+  {
     docId: 'frames',
     title: 'CPX FRAMES',
     icon: ImageIcon,
@@ -60,7 +73,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'frames' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

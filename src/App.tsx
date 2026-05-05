@@ -9,13 +9,14 @@ import { RightSidebar } from './components/layout/RightSidebar';
 import { Home } from './components/Home';
 import { LaptopDocs } from './components/docs/LaptopDocs';
 import { RestaurantsDocs } from './components/docs/RestaurantsDocs';
+import { RacingDocs } from './components/docs/RacingDocs';
 import { FramesDocs } from './components/docs/FramesDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'frames';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames';
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -107,6 +108,7 @@ function AppContent() {
         {currentDoc === 'home' && <Home onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'laptop' && <LaptopDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'restaurants' && <RestaurantsDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'racing' && <RacingDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'frames' && <FramesDocs onSelectDoc={setCurrentDoc} />}
       </main>
 

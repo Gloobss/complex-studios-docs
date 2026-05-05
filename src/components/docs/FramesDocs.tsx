@@ -313,7 +313,7 @@ export function FramesDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => voi
 
         <DocFooter
           lastUpdated="27/4/26"
-          prev={{ title: 'CPX Restaurants', doc: 'restaurants' }}
+          prev={{ title: 'CPX Racing Hub', doc: 'racing' }}
           next={{ title: 'Home', doc: 'home' }}
           onSelectDoc={onSelectDoc}
           accentColor="violet"

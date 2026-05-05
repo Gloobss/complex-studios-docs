@@ -5,6 +5,7 @@ import {
   Laptop,
   Utensils,
   Image as ImageIcon,
+  Flag,
   ShoppingCart,
   BookText,
   Command,
@@ -120,7 +121,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
   const isEs = language === 'es';
 
   // Cycling product names for the BlurWord
-  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Frames'];
+  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames'];
   const [productIndex, setProductIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
@@ -339,6 +340,27 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="restaurants"
             videoId="ybhdrZsjqtg"
             onClick={() => onSelectDoc('restaurants')}
+          />
+
+          {/* CPX Racing Hub */}
+          <ProductCard
+            name="CPX Racing Hub"
+            tagline={
+              isEs
+                ? 'Carreras callejeras: tracks, eventos, leaderboards, marketplace y weekly time-trial.'
+                : 'Street racing: tracks, events, leaderboards, marketplace and weekly time-trial.'
+            }
+            icon={Flag}
+            accentClass="from-yellow-300 to-amber-500"
+            ringClass="hover:border-yellow-400/30 hover:shadow-[0_20px_80px_-20px_rgba(255,214,90,0.18)]"
+            iconBgClass="from-yellow-300 to-amber-500"
+            shadowClass="shadow-[0_0_50px_rgba(255,214,90,0.4)] group-hover:shadow-[0_0_80px_rgba(255,214,90,0.6)]"
+            buttonClass="bg-yellow-400 hover:bg-yellow-300 shadow-[0_0_20px_rgba(255,214,90,0.25)] text-black"
+            titleHoverClass="group-hover:text-yellow-300"
+            miniIcon={Flag}
+            miniLabel="racing"
+            videoId=""
+            onClick={() => onSelectDoc('racing')}
           />
 
           {/* CPX Frames */}
