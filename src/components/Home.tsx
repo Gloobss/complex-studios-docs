@@ -402,6 +402,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-cyan-300"
             miniIcon={Pause}
             miniLabel="pausemenu"
+            videoId="BUqCfQzODUo"
             onClick={() => onSelectDoc('pausemenu')}
           />
         </div>

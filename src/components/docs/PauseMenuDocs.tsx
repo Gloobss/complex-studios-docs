@@ -14,14 +14,13 @@ import {
   Database,
   LayoutGrid,
   Radio,
-  Play,
 } from 'lucide-react';
 import { Callout } from '../ui/Callout';
 import { Step } from '../ui/Step';
 import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
-// import { YouTubeHero } from '../ui/YouTubeHero';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { useLanguage } from '../../contexts/LanguageContext';
 import type { DocType } from '../../App';
 
@@ -60,7 +59,11 @@ export function PauseMenuDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => 
             : 'Premium configurable PauseMenu that replaces GTA\'s native menu. Dynamic businesses with custom commands, ~650 visual combos, in-game admin panel, live character headshot and real-time broadcast to every player.'}
         </p>
 
-        <PauseMenuHeroPlaceholder accent={ACCENT} title="CPX PauseMenu" />
+        <YouTubeHero
+          videoId="BUqCfQzODUo"
+          title="CPX PauseMenu"
+          accent={ACCENT}
+        />
 
         {/* INTRO */}
         <motion.section
@@ -540,70 +543,3 @@ Esc (en-menu)      -- cierra el menú u overlay activo`}
   );
 }
 
-/* ---------------------------------------------------------------------------
- * PauseMenuHeroPlaceholder
- * ---------------------------------------------------------------------------
- * Same aspect ratio as YouTubeHero. Replace this with the real <YouTubeHero />
- * once we have a video for the PauseMenu.
- *
- * To swap in the real video:
- *   1. Uncomment the `import { YouTubeHero } from '../ui/YouTubeHero';` line above.
- *   2. Replace the <PauseMenuHeroPlaceholder /> usage with:
- *        <YouTubeHero videoId="YOUR_VIDEO_ID" title="CPX PauseMenu" accent={ACCENT} />
- *   3. Delete this PauseMenuHeroPlaceholder function and the `Play` icon import.
- * ------------------------------------------------------------------------- */
-function PauseMenuHeroPlaceholder({ accent, title }: { accent: string; title: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.2 }}
-      className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#0d141a] via-[#0a0f15] to-black"
-      style={{ boxShadow: `0 30px 80px -30px ${accent}33` }}
-    >
-      {/* Diagonal stripes — subtle, brand-tinted */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(135deg, ${accent} 0 1px, transparent 1px 14px)`,
-        }}
-      />
-      {/* Soft glow blob */}
-      <div
-        aria-hidden
-        className="absolute -top-32 -right-24 w-[420px] h-[420px] rounded-full blur-[120px] pointer-events-none"
-        style={{ background: `${accent}26` }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8 gap-5">
-        <div
-          className="w-16 h-16 rounded-2xl flex items-center justify-center border"
-          style={{
-            background: `linear-gradient(135deg, ${accent}33, ${accent}10)`,
-            borderColor: `${accent}55`,
-            boxShadow: `0 0 40px ${accent}33`,
-          }}
-        >
-          <Play className="w-7 h-7" strokeWidth={2} style={{ color: accent }} />
-        </div>
-
-        <div>
-          <p
-            className="text-[10px] font-mono uppercase tracking-[0.35em] mb-2"
-            style={{ color: accent }}
-          >
-            {title}
-          </p>
-          <h3 className="text-2xl md:text-3xl font-display text-white tracking-tight">
-            Walkthrough coming soon
-          </h3>
-          <p className="mt-2 text-[13.5px] text-zinc-400">
-            Vídeo en producción · Walkthrough en route
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
