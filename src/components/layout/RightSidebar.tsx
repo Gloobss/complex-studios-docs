@@ -32,6 +32,14 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'frames-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'frames-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  pausemenu: [
+    { id: 'pausemenu-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'pausemenu-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'pausemenu-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'pausemenu-config', label: isEs ? 'Configuración' : 'Configuration' },
+    { id: 'pausemenu-admin', label: isEs ? 'Editor in-game' : 'In-game editor' },
+    { id: 'pausemenu-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
 });
 
 const containerVariants: Variants = {

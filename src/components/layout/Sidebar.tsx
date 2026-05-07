@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -66,6 +66,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'frames-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'pausemenu',
+    title: 'CPX PAUSEMENU',
+    icon: Pause,
+    items: [
+      { id: 'pausemenu-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'pausemenu-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'pausemenu-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'pausemenu-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'pausemenu-admin',        label: isEs ? 'Editor in-game'         : 'In-game editor' },
+      { id: 'pausemenu-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -73,7 +86,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

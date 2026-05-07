@@ -11,16 +11,14 @@ type DocFooterProps = {
   prev?: DocLink;
   next?: DocLink;
   onSelectDoc: (doc: DocType) => void;
-  accentColor?: 'lima' | 'amber' | 'violet';
+  accentColor?: 'lima' | 'amber' | 'violet' | 'cyan';
 };
 
 export function DocFooter({ lastUpdated, prev, next, onSelectDoc, accentColor = 'lima' }: DocFooterProps) {
-  const isLima = accentColor === 'lima';
-  const isAmber = accentColor === 'amber';
-  
   let textClass = 'text-[#c6ff3d] group-hover:text-[#b0f020]';
-  if (isAmber) textClass = 'text-amber-500 group-hover:text-amber-400';
+  if (accentColor === 'amber') textClass = 'text-amber-500 group-hover:text-amber-400';
   if (accentColor === 'violet') textClass = 'text-violet-400 group-hover:text-violet-300';
+  if (accentColor === 'cyan') textClass = 'text-cyan-300 group-hover:text-cyan-200';
 
   return (
     <div className="mt-16 w-full">

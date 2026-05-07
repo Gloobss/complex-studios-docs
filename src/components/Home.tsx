@@ -6,6 +6,7 @@ import {
   Utensils,
   Image as ImageIcon,
   Flag,
+  Pause,
   ShoppingCart,
   BookText,
   Command,
@@ -121,7 +122,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
   const isEs = language === 'es';
 
   // Cycling product names for the BlurWord
-  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames'];
+  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames', 'CPX PauseMenu'];
   const [productIndex, setProductIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
@@ -250,7 +251,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
           className="relative z-10 mt-20 flex items-start gap-10 lg:gap-16 flex-wrap"
         >
           {([
-            { value: '3', label: isEs ? 'productos documentados' : 'products documented' },
+            { value: '5', label: isEs ? 'productos documentados' : 'products documented' },
             { value: 'ES · EN', label: isEs ? 'soporte bilingüe' : 'bilingual support' },
             { value: '100%', label: isEs ? 'Lua válido garantizado' : 'guaranteed valid Lua' },
             { value: <VisitorCounter />, label: isEs ? 'visitas a la documentación' : 'documentation visits' },
@@ -382,6 +383,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="frames"
             videoId="dIa4zdEXM9c"
             onClick={() => onSelectDoc('frames')}
+          />
+
+          {/* CPX PauseMenu */}
+          <ProductCard
+            name="CPX PauseMenu"
+            tagline={
+              isEs
+                ? 'PauseMenu premium configurable: negocios dinámicos, ~650 combos visuales y panel admin in-game.'
+                : 'Premium configurable PauseMenu: dynamic businesses, ~650 visual combos and in-game admin panel.'
+            }
+            icon={Pause}
+            accentClass="from-cyan-300 to-sky-500"
+            ringClass="hover:border-cyan-400/30 hover:shadow-[0_20px_80px_-20px_rgba(77,217,255,0.18)]"
+            iconBgClass="from-cyan-300 to-sky-500"
+            shadowClass="shadow-[0_0_50px_rgba(77,217,255,0.4)] group-hover:shadow-[0_0_80px_rgba(77,217,255,0.6)]"
+            buttonClass="bg-cyan-400 hover:bg-cyan-300 shadow-[0_0_20px_rgba(77,217,255,0.25)] text-black"
+            titleHoverClass="group-hover:text-cyan-300"
+            miniIcon={Pause}
+            miniLabel="pausemenu"
+            onClick={() => onSelectDoc('pausemenu')}
           />
         </div>
       </section>
