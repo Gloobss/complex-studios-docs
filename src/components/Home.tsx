@@ -7,6 +7,7 @@ import {
   Image as ImageIcon,
   Flag,
   Pause,
+  BookOpen,
   ShoppingCart,
   BookText,
   Command,
@@ -122,7 +123,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
   const isEs = language === 'es';
 
   // Cycling product names for the BlurWord
-  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames', 'CPX PauseMenu'];
+  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames', 'CPX PauseMenu', 'CPX Album'];
   const [productIndex, setProductIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
@@ -404,6 +405,27 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="pausemenu"
             videoId="BUqCfQzODUo"
             onClick={() => onSelectDoc('pausemenu')}
+          />
+
+          {/* CPX Album */}
+          <ProductCard
+            name="CPX Album"
+            tagline={
+              isEs
+                ? 'Álbum de figuritas estilo Panini: 27 países, 648 stickers, sobres sellados, caja organizadora y tienda con NPC.'
+                : 'Panini-style sticker album: 27 nations, 648 stickers, sealed packs, storage box and NPC shop.'
+            }
+            icon={BookOpen}
+            accentClass="from-amber-300 to-yellow-500"
+            ringClass="hover:border-amber-400/30 hover:shadow-[0_20px_80px_-20px_rgba(243,208,62,0.20)]"
+            iconBgClass="from-amber-300 to-yellow-500"
+            shadowClass="shadow-[0_0_50px_rgba(243,208,62,0.4)] group-hover:shadow-[0_0_80px_rgba(243,208,62,0.6)]"
+            buttonClass="bg-amber-400 hover:bg-amber-300 shadow-[0_0_20px_rgba(243,208,62,0.25)] text-black"
+            titleHoverClass="group-hover:text-amber-300"
+            miniIcon={BookOpen}
+            miniLabel="album"
+            videoId=""
+            onClick={() => onSelectDoc('album')}
           />
         </div>
       </section>

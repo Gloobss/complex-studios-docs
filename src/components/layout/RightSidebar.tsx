@@ -40,6 +40,15 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'pausemenu-admin', label: isEs ? 'Editor in-game' : 'In-game editor' },
     { id: 'pausemenu-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  album: [
+    { id: 'album-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'album-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'album-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'album-config', label: isEs ? 'Configuración' : 'Configuration' },
+    { id: 'album-matrix', label: isEs ? 'Soporte por inventario' : 'Inventory support' },
+    { id: 'album-commands', label: isEs ? 'Comandos' : 'Commands' },
+    { id: 'album-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
 });
 
 const containerVariants: Variants = {
