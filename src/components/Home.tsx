@@ -424,7 +424,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-amber-300"
             miniIcon={BookOpen}
             miniLabel="album"
-            videoId=""
+            videoId="HYl48qGWcvc"
             onClick={() => onSelectDoc('album')}
           />
         </div>

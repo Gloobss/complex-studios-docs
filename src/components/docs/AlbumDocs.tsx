@@ -59,7 +59,7 @@ export function AlbumDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void
         </p>
 
         <YouTubeHero
-          videoId=""
+          videoId="HYl48qGWcvc"
           title="CPX Album"
           accent={ACCENT}
         />
