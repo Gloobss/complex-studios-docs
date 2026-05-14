@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -93,6 +93,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'album-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'clothesdesigner',
+    title: 'CPX CLOTHING DESIGNER',
+    icon: Shirt,
+    items: [
+      { id: 'clothesdesigner-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'clothesdesigner-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'clothesdesigner-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'clothesdesigner-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'clothesdesigner-ai',           label: isEs ? 'AI Designer'           : 'AI Designer' },
+      { id: 'clothesdesigner-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -100,7 +113,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

@@ -13,12 +13,13 @@ import { RacingDocs } from './components/docs/RacingDocs';
 import { FramesDocs } from './components/docs/FramesDocs';
 import { PauseMenuDocs } from './components/docs/PauseMenuDocs';
 import { AlbumDocs } from './components/docs/AlbumDocs';
+import { ClothesDesignerDocs } from './components/docs/ClothesDesignerDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner';
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -114,6 +115,7 @@ function AppContent() {
         {currentDoc === 'frames' && <FramesDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'pausemenu' && <PauseMenuDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'album' && <AlbumDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'clothesdesigner' && <ClothesDesignerDocs onSelectDoc={setCurrentDoc} />}
       </main>
 
       {currentDoc !== 'home' && <RightSidebar currentDoc={currentDoc} />}

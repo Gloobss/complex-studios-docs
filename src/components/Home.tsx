@@ -8,6 +8,7 @@ import {
   Flag,
   Pause,
   BookOpen,
+  Shirt,
   ShoppingCart,
   BookText,
   Command,
@@ -426,6 +427,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="album"
             videoId="HYl48qGWcvc"
             onClick={() => onSelectDoc('album')}
+          />
+
+          {/* CPX Clothing Designer */}
+          <ProductCard
+            name="CPX Clothing Designer"
+            tagline={
+              isEs
+                ? 'Estudio in-game para pintar texturas custom sobre prendas vanilla. Editor completo, biblioteca personal, AI Designer y multi-framework.'
+                : 'In-game studio to paint custom textures over vanilla garments. Full editor, personal library, AI Designer and multi-framework support.'
+            }
+            icon={Shirt}
+            accentClass="from-[#c6ff3d] to-[#8de000]"
+            ringClass="hover:border-[#c6ff3d]/30 hover:shadow-[0_20px_80px_-20px_rgba(198,255,61,0.20)]"
+            iconBgClass="from-[#c6ff3d] to-[#8de000]"
+            shadowClass="shadow-[0_0_50px_rgba(198,255,61,0.4)] group-hover:shadow-[0_0_80px_rgba(198,255,61,0.6)]"
+            buttonClass="bg-[#c6ff3d] hover:bg-[#d8ff7a] shadow-[0_0_20px_rgba(198,255,61,0.25)] text-black"
+            titleHoverClass="group-hover:text-[#c6ff3d]"
+            miniIcon={Shirt}
+            miniLabel="clothesdesigner"
+            onClick={() => onSelectDoc('clothesdesigner')}
           />
         </div>
       </section>
