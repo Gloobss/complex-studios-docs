@@ -14,6 +14,7 @@ import { Step } from '../ui/Step';
 import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { ConfigGenerator } from '../ui/ConfigGenerator';
 import { clothesdesignerConfigSchema } from '../../lib/configs/clothesdesigner-config';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -52,6 +53,18 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
             ? 'Estudio in-game para pintar texturas personalizadas sobre prendas vanilla de GTA. Editor completo, biblioteca personal y soporte multi-framework.'
             : 'In-game studio to paint custom textures over vanilla GTA garments. Full editor, personal library and multi-framework support.'}
         </p>
+
+        <YouTubeHero
+          videoId="MvhkYgL91eM"
+          title="CPX Clothing Designer preview"
+          accent={ACCENT}
+          badge={
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs font-medium">
+              <Shirt className="w-3.5 h-3.5 text-[#c6ff3d]" />
+              {isEs ? 'Demo en vivo' : 'Live demo'}
+            </span>
+          }
+        />
 
         {/* ── INTRODUCTION ─────────────────── */}
         <motion.section
