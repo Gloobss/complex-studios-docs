@@ -1,7 +1,8 @@
 # Complex Studios — Documentation
 
 Public docs site for the Complex Studios FiveM scripts (CPX Laptop, CPX
-Restaurants, CPX Frames). Built with **Vite + React 19 + Tailwind 4** and
+Restaurants, CPX Racing Hub, CPX Frames, CPX PauseMenu, CPX Album, CPX
+Clothing Designer). Built with **Vite + React 19 + Tailwind 4** and
 deployed on **Vercel**.
 
 ## Local dev
