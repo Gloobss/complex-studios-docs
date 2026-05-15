@@ -2,12 +2,10 @@ import { motion } from 'motion/react';
 import {
   Package,
   Shirt,
-  Sparkles,
   Settings2,
   Database,
   Languages,
   Layers,
-  Wand2,
   Shield,
   Box,
 } from 'lucide-react';
@@ -51,8 +49,8 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
 
         <p className="text-[17px] text-zinc-400 leading-relaxed mb-10 font-sans max-w-2xl">
           {isEs
-            ? 'Estudio in-game para pintar texturas personalizadas sobre prendas vanilla de GTA. Editor completo, biblioteca personal, AI Designer y soporte multi-framework.'
-            : 'In-game studio to paint custom textures over vanilla GTA garments. Full editor, personal library, AI Designer and multi-framework support.'}
+            ? 'Estudio in-game para pintar texturas personalizadas sobre prendas vanilla de GTA. Editor completo, biblioteca personal y soporte multi-framework.'
+            : 'In-game studio to paint custom textures over vanilla GTA garments. Full editor, personal library and multi-framework support.'}
         </p>
 
         {/* ── INTRODUCTION ─────────────────── */}
@@ -111,15 +109,6 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
                 description: isEs
                   ? 'Cada jugador guarda hasta 30 diseños. Códigos compartibles entre jugadores. Navegador propio integrado.'
                   : 'Each player saves up to 30 designs. Share codes between players. Built-in browser.',
-                colorClass: 'text-[#c6ff3d]',
-                bgClass: 'bg-[#c6ff3d]/10',
-              },
-              {
-                icon: Wand2,
-                title: isEs ? 'AI Designer ✨' : 'AI Designer ✨',
-                description: isEs
-                  ? 'Describí un diseño en lenguaje natural y la IA lo arma. Funciona gratis sin key (Pollinations) o con providers premium (OpenAI, Groq, Replicate, Gemini).'
-                  : 'Describe a design in natural language and AI builds it. Works free with no key (Pollinations) or with premium providers (OpenAI, Groq, Replicate, Gemini).',
                 colorClass: 'text-[#c6ff3d]',
                 bgClass: 'bg-[#c6ff3d]/10',
               },
@@ -276,85 +265,6 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
           <ConfigGenerator schemas={[clothesdesignerConfigSchema]} accent={ACCENT} />
         </motion.section>
 
-        {/* ── AI DESIGNER ──────────────────── */}
-        <motion.section
-          id="clothesdesigner-ai"
-          className="mb-24 scroll-mt-[10vh]"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <Sparkles className="w-6 h-6 text-[#c6ff3d]" />
-            <h2 className="text-3xl font-bold text-white tracking-tight font-display">
-              {isEs ? 'AI Designer' : 'AI Designer'}
-            </h2>
-          </div>
-          <p className="text-[15px] text-zinc-400 max-w-2xl mb-6">
-            {isEs
-              ? 'Los jugadores tocan el botón ✨ en la toolbar, describen un diseño en lenguaje natural ("hoodie roja de banda con calavera en el pecho") y la IA arma todo. Sin configuración previa funciona con Pollinations gratis.'
-              : 'Players hit the ✨ button in the toolbar, describe a design in natural language ("red gang hoodie with skull on chest") and the AI builds it. Zero-config it works free with Pollinations.'}
-          </p>
-
-          <div className="overflow-x-auto mb-6 bg-[#080808]/50 backdrop-blur-sm rounded-2xl border border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            <table className="w-full text-left text-[14.5px]">
-              <thead className="bg-white/[0.02] border-b border-white/[0.08]">
-                <tr>
-                  <th className="py-4 px-6 text-zinc-300 font-semibold text-[13px] tracking-wide uppercase">Provider</th>
-                  <th className="py-4 px-6 text-zinc-300 font-semibold text-[13px] tracking-wide uppercase">{isEs ? 'Costo' : 'Cost'}</th>
-                  <th className="py-4 px-6 text-zinc-300 font-semibold text-[13px] tracking-wide uppercase">Key</th>
-                  <th className="py-4 px-6 text-zinc-300 font-semibold text-[13px] tracking-wide uppercase">{isEs ? 'Calidad' : 'Quality'}</th>
-                  <th className="py-4 px-6 text-zinc-300 font-semibold text-[13px] tracking-wide uppercase">{isEs ? 'Región' : 'Region'}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.05] text-zinc-400">
-                <tr>
-                  <td className="py-3 px-6"><code className="text-[#c6ff3d]">Pollinations</code></td>
-                  <td className="py-3 px-6">{isEs ? 'Gratis' : 'Free'}</td>
-                  <td className="py-3 px-6">—</td>
-                  <td className="py-3 px-6">{isEs ? 'Media' : 'Medium'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Global' : 'Global'}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-6"><code className="text-[#c6ff3d]">Groq</code></td>
-                  <td className="py-3 px-6">{isEs ? 'Gratis' : 'Free'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Sí (sin tarjeta)' : 'Yes (no card)'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Alta (LLM)' : 'High (LLM)'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Global' : 'Global'}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-6"><code className="text-[#c6ff3d]">OpenAI</code></td>
-                  <td className="py-3 px-6">~$0.04/img</td>
-                  <td className="py-3 px-6">{isEs ? 'Sí' : 'Yes'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Excelente' : 'Excellent'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Global' : 'Global'}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-6"><code className="text-[#c6ff3d]">Replicate</code></td>
-                  <td className="py-3 px-6">~$0.003/img</td>
-                  <td className="py-3 px-6">{isEs ? 'Sí' : 'Yes'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Alta' : 'High'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Global' : 'Global'}</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-6"><code className="text-[#c6ff3d]">Gemini</code></td>
-                  <td className="py-3 px-6">{isEs ? 'Free tier + billing' : 'Free tier + billing'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Sí' : 'Yes'}</td>
-                  <td className="py-3 px-6">{isEs ? 'Excelente + UV-aware' : 'Excellent + UV-aware'}</td>
-                  <td className="py-3 px-6 text-amber-400">{isEs ? 'Geo-fenced' : 'Geo-fenced'}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <Callout type="info" title={isEs ? 'UV-aware solo en Gemini' : 'UV-aware only on Gemini'}>
-            {isEs
-              ? 'Gemini Nano Banana es el único provider que respeta el unwrap UV de cada prenda (image-to-image con UV reference). Los otros providers generan imágenes y el cliente las pega en zonas semánticas del UV. Si necesitás máxima fidelidad usá Gemini si tu región lo permite.'
-              : 'Gemini Nano Banana is the only provider that respects each garment\'s UV unwrap (image-to-image with UV reference). Other providers generate images and the client places them on semantic UV zones. Use Gemini for maximum fidelity if your region allows it.'}
-          </Callout>
-        </motion.section>
-
         {/* ── TROUBLESHOOTING ──────────────── */}
         <motion.section
           id="clothesdesigner-troubleshoot"
@@ -390,18 +300,6 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
                 <li>{isEs ? 'El naming debe seguir la convención caret:' : 'Naming must follow the caret convention:'} <code className="text-white">mp_&lt;g&gt;_freemode_01^&lt;file&gt;.ydd</code></li>
                 <li>{isEs ? 'Tanto .ydd como .ytd deben estar presentes en pareja.' : 'Both .ydd and matching .ytd must be present.'}</li>
                 <li>{isEs ? 'Activá' : 'Enable'} <code className="text-white">BCDConfig.Debug = true</code> {isEs ? 'y reiniciá: el log imprime cada probe.' : 'and restart — the log prints every probe.'}</li>
-              </ul>
-            </div>
-
-            <div className="group border border-white/[0.05] bg-[#0a0a0a] rounded-2xl p-6 hover:border-white/10 transition-colors">
-              <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-zinc-500 group-hover:text-white transition-colors" />
-                {isEs ? 'AI Designer no genera nada' : "AI Designer returns nothing"}
-              </h3>
-              <ul className="list-disc pl-5 space-y-2 text-[15px] text-zinc-400">
-                <li>{isEs ? 'Si usás Gemini y tu región no está soportada, el provider devuelve 400/403 con body vacío. Cambiá a Pollinations en' : 'If you use Gemini and your region is unsupported, you\'ll get 400/403 with an empty body. Switch to Pollinations in'} <code className="text-white">config/ai.lua</code>.</li>
-                <li>{isEs ? 'Pollinations puede tener cortes de servicio puntuales. Esperá unos minutos y reintentá.' : 'Pollinations can have brief outages. Wait a few minutes and retry.'}</li>
-                <li>{isEs ? 'Si activaste OpenAI o Replicate, verificá que la key esté pegada correctamente en' : 'If you enabled OpenAI or Replicate, verify the key is pasted correctly in'} <code className="text-white">config/ai.lua</code> → <code className="text-white">providers.{`{name}`}.api_key</code>.</li>
               </ul>
             </div>
 

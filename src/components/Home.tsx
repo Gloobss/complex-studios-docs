@@ -434,8 +434,8 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             name="CPX Clothing Designer"
             tagline={
               isEs
-                ? 'Estudio in-game para pintar texturas custom sobre prendas vanilla. Editor completo, biblioteca personal, AI Designer y multi-framework.'
-                : 'In-game studio to paint custom textures over vanilla garments. Full editor, personal library, AI Designer and multi-framework support.'
+                ? 'Estudio in-game para pintar texturas custom sobre prendas vanilla. Editor completo, biblioteca personal y multi-framework.'
+                : 'In-game studio to paint custom textures over vanilla garments. Full editor, personal library and multi-framework support.'
             }
             icon={Shirt}
             accentClass="from-[#c6ff3d] to-[#8de000]"

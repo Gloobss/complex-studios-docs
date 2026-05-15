@@ -54,7 +54,6 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'clothesdesigner-features', label: isEs ? 'Características' : "What's Inside" },
     { id: 'clothesdesigner-install', label: isEs ? 'Instalación' : 'Installation' },
     { id: 'clothesdesigner-config', label: isEs ? 'Configuración' : 'Configuration' },
-    { id: 'clothesdesigner-ai', label: isEs ? 'AI Designer' : 'AI Designer' },
     { id: 'clothesdesigner-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
 });
