@@ -56,6 +56,14 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'clothesdesigner-config', label: isEs ? 'Configuración' : 'Configuration' },
     { id: 'clothesdesigner-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  announcements: [
+    { id: 'announcements-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'announcements-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'announcements-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'announcements-config', label: isEs ? 'Configuración' : 'Configuration' },
+    { id: 'announcements-commands', label: isEs ? 'Comandos' : 'Commands' },
+    { id: 'announcements-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
 });
 
 const containerVariants: Variants = {

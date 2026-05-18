@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -105,6 +105,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'clothesdesigner-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'announcements',
+    title: 'CPX ANNOUNCEMENTS',
+    icon: Megaphone,
+    items: [
+      { id: 'announcements-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'announcements-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'announcements-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'announcements-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'announcements-commands',     label: isEs ? 'Comandos'              : 'Commands' },
+      { id: 'announcements-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -112,7 +125,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

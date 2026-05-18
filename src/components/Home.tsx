@@ -9,6 +9,7 @@ import {
   Pause,
   BookOpen,
   Shirt,
+  Megaphone,
   ShoppingCart,
   BookText,
   Command,
@@ -124,7 +125,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
   const isEs = language === 'es';
 
   // Cycling product names for the BlurWord
-  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames', 'CPX PauseMenu', 'CPX Album'];
+  const products = ['CPX Laptop', 'CPX Restaurants', 'CPX Racing Hub', 'CPX Frames', 'CPX PauseMenu', 'CPX Album', 'CPX Announcements'];
   const [productIndex, setProductIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
@@ -253,7 +254,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
           className="relative z-10 mt-20 flex items-start gap-10 lg:gap-16 flex-wrap"
         >
           {([
-            { value: '5', label: isEs ? 'productos documentados' : 'products documented' },
+            { value: '8', label: isEs ? 'productos documentados' : 'products documented' },
             { value: 'ES · EN', label: isEs ? 'soporte bilingüe' : 'bilingual support' },
             { value: '100%', label: isEs ? 'Lua válido garantizado' : 'guaranteed valid Lua' },
             { value: <VisitorCounter />, label: isEs ? 'visitas a la documentación' : 'documentation visits' },
@@ -448,6 +449,27 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="clothesdesigner"
             videoId="MvhkYgL91eM"
             onClick={() => onSelectDoc('clothesdesigner')}
+          />
+
+          {/* CPX Announcements */}
+          <ProductCard
+            name="CPX Announcements"
+            tagline={
+              isEs
+                ? 'Anuncios persistentes por negocio con editor admin in-game, preview en vivo y multi-framework. GPS opcional y comando custom por job.'
+                : 'Persistent per-business announcements with in-game admin editor, live preview and multi-framework support. Optional GPS and per-job custom command.'
+            }
+            icon={Megaphone}
+            accentClass="from-pink-300 to-rose-500"
+            ringClass="hover:border-pink-400/30 hover:shadow-[0_20px_80px_-20px_rgba(244,114,182,0.20)]"
+            iconBgClass="from-pink-300 to-rose-500"
+            shadowClass="shadow-[0_0_50px_rgba(244,114,182,0.4)] group-hover:shadow-[0_0_80px_rgba(244,114,182,0.6)]"
+            buttonClass="bg-pink-400 hover:bg-pink-300 shadow-[0_0_20px_rgba(244,114,182,0.25)] text-black"
+            titleHoverClass="group-hover:text-pink-300"
+            miniIcon={Megaphone}
+            miniLabel="announcements"
+            videoId="FEpe2m8XYTk"
+            onClick={() => onSelectDoc('announcements')}
           />
         </div>
       </section>

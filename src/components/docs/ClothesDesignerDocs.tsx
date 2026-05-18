@@ -332,7 +332,7 @@ export function ClothesDesignerDocs({ onSelectDoc }: { onSelectDoc: (doc: DocTyp
         <DocFooter
           lastUpdated="14/5/26"
           prev={{ title: 'CPX Laptop', doc: 'laptop' }}
-          next={{ title: 'Home', doc: 'home' }}
+          next={{ title: 'CPX Announcements', doc: 'announcements' }}
           onSelectDoc={onSelectDoc}
           accentColor="lima"
         />
