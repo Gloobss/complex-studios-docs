@@ -64,6 +64,21 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'announcements-commands', label: isEs ? 'Comandos' : 'Commands' },
     { id: 'announcements-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  chopshop: [
+    { id: 'chopshop-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'chopshop-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'chopshop-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'chopshop-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
+    { id: 'chopshop-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
+  gangs: [
+    { id: 'gangs-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'gangs-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'gangs-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'gangs-admin', label: isEs ? 'Panel admin' : 'Admin panel' },
+    { id: 'gangs-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
+    { id: 'gangs-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
 });
 
 const containerVariants: Variants = {

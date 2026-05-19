@@ -15,12 +15,14 @@ import { PauseMenuDocs } from './components/docs/PauseMenuDocs';
 import { AlbumDocs } from './components/docs/AlbumDocs';
 import { ClothesDesignerDocs } from './components/docs/ClothesDesignerDocs';
 import { AnnouncementsDocs } from './components/docs/AnnouncementsDocs';
+import { ChopshopDocs } from './components/docs/ChopshopDocs';
+import { GangsDocs } from './components/docs/GangsDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs';
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -118,6 +120,8 @@ function AppContent() {
         {currentDoc === 'album' && <AlbumDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'clothesdesigner' && <ClothesDesignerDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'announcements' && <AnnouncementsDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'chopshop' && <ChopshopDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'gangs' && <GangsDocs onSelectDoc={setCurrentDoc} />}
       </main>
 
       {currentDoc !== 'home' && <RightSidebar currentDoc={currentDoc} />}

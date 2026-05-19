@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -118,6 +118,31 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'announcements-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'chopshop',
+    title: 'CPX CHOPSHOP',
+    icon: Car,
+    items: [
+      { id: 'chopshop-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'chopshop-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'chopshop-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'chopshop-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'chopshop-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
+  {
+    docId: 'gangs',
+    title: 'CPX GANGS',
+    icon: Users,
+    items: [
+      { id: 'gangs-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'gangs-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'gangs-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'gangs-admin',        label: isEs ? 'Panel admin'           : 'Admin panel' },
+      { id: 'gangs-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'gangs-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -125,7 +150,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

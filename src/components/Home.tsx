@@ -16,6 +16,8 @@ import {
   ArrowRight,
   ArrowUpRight,
   MessageCircle,
+  Car,
+  Users,
 } from 'lucide-react';
 import type { DocType } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -451,6 +453,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             onClick={() => onSelectDoc('clothesdesigner')}
           />
 
+          {/* CPX Chopshop */}
+          <ProductCard
+            name="CPX Chopshop"
+            tagline={
+              isEs
+                ? 'Robo y deshueso de vehículos con minijuegos NUI propios, garajes con tiers, redadas policiales y dispatch en vivo. Multi-framework.'
+                : 'Stealth car-theft and dismantling with custom NUI minigames, tiered warehouses, police raids and live dispatch. Multi-framework.'
+            }
+            icon={Car}
+            accentClass="from-red-500 to-red-800"
+            ringClass="hover:border-red-500/30 hover:shadow-[0_20px_80px_-20px_rgba(220,38,38,0.20)]"
+            iconBgClass="from-red-500 to-red-800"
+            shadowClass="shadow-[0_0_50px_rgba(220,38,38,0.4)] group-hover:shadow-[0_0_80px_rgba(220,38,38,0.6)]"
+            buttonClass="bg-red-600 hover:bg-red-500 shadow-[0_0_20px_rgba(220,38,38,0.25)] text-white"
+            titleHoverClass="group-hover:text-red-400"
+            miniIcon={Car}
+            miniLabel="chopshop"
+            onClick={() => onSelectDoc('chopshop')}
+          />
+
           {/* CPX Announcements */}
           <ProductCard
             name="CPX Announcements"
@@ -470,6 +492,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniLabel="announcements"
             videoId="FEpe2m8XYTk"
             onClick={() => onSelectDoc('announcements')}
+          />
+
+          {/* CPX Gangs */}
+          <ProductCard
+            name="CPX Gangs"
+            tagline={
+              isEs
+                ? 'Sistema completo de bandas con territorios, raids, contratos, dossier semanal y panel admin con audit log + telemetría en vivo.'
+                : 'Full gang system with territories, raids, contracts, weekly dossier and an admin panel with audit log + live telemetry.'
+            }
+            icon={Users}
+            accentClass="from-[#ef4444] to-[#b91c1c]"
+            ringClass="hover:border-[#ef4444]/30 hover:shadow-[0_20px_80px_-20px_rgba(239,68,68,0.20)]"
+            iconBgClass="from-[#ef4444] to-[#b91c1c]"
+            shadowClass="shadow-[0_0_50px_rgba(239,68,68,0.4)] group-hover:shadow-[0_0_80px_rgba(239,68,68,0.6)]"
+            buttonClass="bg-[#ef4444] hover:bg-[#dc2626] shadow-[0_0_20px_rgba(239,68,68,0.25)]"
+            titleHoverClass="group-hover:text-[#ef4444]"
+            miniIcon={Users}
+            miniLabel="gangs"
+            onClick={() => onSelectDoc('gangs')}
           />
         </div>
       </section>
