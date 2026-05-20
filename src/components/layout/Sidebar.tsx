@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -143,6 +143,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'gangs-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'vipsystem',
+    title: 'CPX VIP SYSTEM',
+    icon: Crown,
+    items: [
+      { id: 'vipsystem-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'vipsystem-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'vipsystem-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'vipsystem-tebex',        label: isEs ? 'Configuración de Tebex': 'Tebex setup' },
+      { id: 'vipsystem-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'vipsystem-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -150,7 +163,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

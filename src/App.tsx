@@ -17,12 +17,13 @@ import { ClothesDesignerDocs } from './components/docs/ClothesDesignerDocs';
 import { AnnouncementsDocs } from './components/docs/AnnouncementsDocs';
 import { ChopshopDocs } from './components/docs/ChopshopDocs';
 import { GangsDocs } from './components/docs/GangsDocs';
+import { VipSystemDocs } from './components/docs/VipSystemDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem';
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -122,6 +123,7 @@ function AppContent() {
         {currentDoc === 'announcements' && <AnnouncementsDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'chopshop' && <ChopshopDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'gangs' && <GangsDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'vipsystem' && <VipSystemDocs onSelectDoc={setCurrentDoc} />}
       </main>
 
       {currentDoc !== 'home' && <RightSidebar currentDoc={currentDoc} />}

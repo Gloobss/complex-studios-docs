@@ -79,6 +79,14 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'gangs-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'gangs-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  vipsystem: [
+    { id: 'vipsystem-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'vipsystem-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'vipsystem-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'vipsystem-tebex', label: isEs ? 'Configuración de Tebex' : 'Tebex Setup' },
+    { id: 'vipsystem-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
+    { id: 'vipsystem-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
 });
 
 const containerVariants: Variants = {

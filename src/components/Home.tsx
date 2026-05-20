@@ -18,6 +18,7 @@ import {
   MessageCircle,
   Car,
   Users,
+  Crown,
 } from 'lucide-react';
 import type { DocType } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -512,6 +513,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniIcon={Users}
             miniLabel="gangs"
             onClick={() => onSelectDoc('gangs')}
+          />
+
+          {/* CPX VIP System */}
+          <ProductCard
+            name="CPX VIP System"
+            tagline={
+              isEs
+                ? 'Tienda premium in-game con una sola moneda (coins): bundles, vehículos, casas y mascotas, cajas misteriosas estilo CS:GO y recargas via Tebex con entrega automática.'
+                : 'In-game premium store on a single currency (coins): bundles, vehicles, houses and pets, CS:GO-style mystery cases and Tebex top-ups with automatic delivery.'
+            }
+            icon={Crown}
+            accentClass="from-[#FF4D1C] to-[#ff8a4c]"
+            ringClass="hover:border-[#FF4D1C]/30 hover:shadow-[0_20px_80px_-20px_rgba(255,77,28,0.20)]"
+            iconBgClass="from-[#FF4D1C] to-[#ff8a4c]"
+            shadowClass="shadow-[0_0_50px_rgba(255,77,28,0.4)] group-hover:shadow-[0_0_80px_rgba(255,77,28,0.6)]"
+            buttonClass="bg-[#FF4D1C] hover:bg-[#ff6a40] shadow-[0_0_20px_rgba(255,77,28,0.25)] text-black"
+            titleHoverClass="group-hover:text-[#FF4D1C]"
+            miniIcon={Crown}
+            miniLabel="cpx-vipsystem"
+            onClick={() => onSelectDoc('vipsystem')}
           />
         </div>
       </section>
