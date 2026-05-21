@@ -16,6 +16,7 @@ import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
 import { ConfigGenerator } from '../ui/ConfigGenerator';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { chopshopConfigSchema } from '../../lib/configs/chopshop-config';
 import { useLanguage } from '../../contexts/LanguageContext';
 import type { DocType } from '../../App';
@@ -54,10 +55,22 @@ export function ChopshopDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => v
             : 'Stealth car-theft and dismantling framework with NUI minigames, tiered warehouses and live dispatch.'}
         </p>
 
+        <YouTubeHero
+          videoId="t7-8E8NOVi8"
+          title="CPX Chopshop preview"
+          accent={ACCENT}
+          badge={
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs font-medium">
+              <Car className="w-3.5 h-3.5 text-[#dc2626]" />
+              {isEs ? 'Demo en vivo' : 'Live demo'}
+            </span>
+          }
+        />
+
         {/* ── INTRODUCTION ─────────────────── */}
         <motion.section
           id="chopshop-intro"
-          className="mt-16 mb-20 scroll-mt-[10vh]"
+          className="mt-24 mb-20 scroll-mt-[10vh]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
