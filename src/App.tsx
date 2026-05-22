@@ -18,12 +18,32 @@ import { AnnouncementsDocs } from './components/docs/AnnouncementsDocs';
 import { ChopshopDocs } from './components/docs/ChopshopDocs';
 import { GangsDocs } from './components/docs/GangsDocs';
 import { VipSystemDocs } from './components/docs/VipSystemDocs';
+import { RulesDocs } from './components/docs/RulesDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules';
+
+// Clean URLs, Vercel-style: every doc owns a path (/, /chopshop, /rules …).
+// vercel.json already rewrites all paths to index.html, so deep-links and
+// reloads resolve client-side here. Keep this list in sync with DocType.
+const DOC_TYPES: DocType[] = [
+  'home', 'laptop', 'restaurants', 'racing', 'frames', 'pausemenu',
+  'album', 'clothesdesigner', 'announcements', 'chopshop', 'gangs',
+  'vipsystem', 'rules',
+];
+
+function pathToDoc(pathname: string): DocType {
+  const slug = pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  if (!slug) return 'home';
+  return (DOC_TYPES.includes(slug as DocType) ? slug : 'home') as DocType;
+}
+
+function docToPath(doc: DocType): string {
+  return doc === 'home' ? '/' : `/${doc}`;
+}
 
 function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -46,13 +66,32 @@ function LanguageSwitcher() {
 }
 
 function AppContent() {
-  const [currentDoc, setCurrentDoc] = useState<DocType>('home');
+  const [currentDoc, setCurrentDoc] = useState<DocType>(() =>
+    typeof window !== 'undefined' ? pathToDoc(window.location.pathname) : 'home',
+  );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [currentDoc]);
+
+  // Keep the URL in sync with the active doc (pushState) + scroll to top.
+  useEffect(() => {
+    const desired = docToPath(currentDoc);
+    if (window.location.pathname !== desired) {
+      window.history.pushState({ doc: currentDoc }, '', desired);
+    }
+    document.getElementById('main-content')?.scrollTo?.({ top: 0 });
+    window.scrollTo({ top: 0 });
+  }, [currentDoc]);
+
+  // Browser back/forward → resolve the doc from the new path.
+  useEffect(() => {
+    const onPop = () => setCurrentDoc(pathToDoc(window.location.pathname));
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
   return (
     <div className="flex relative text-zinc-300 min-h-screen font-sans items-start selection:bg-lima/30 selection:text-lima">
@@ -124,6 +163,7 @@ function AppContent() {
         {currentDoc === 'chopshop' && <ChopshopDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'gangs' && <GangsDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'vipsystem' && <VipSystemDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'rules' && <RulesDocs onSelectDoc={setCurrentDoc} />}
       </main>
 
       {currentDoc !== 'home' && <RightSidebar currentDoc={currentDoc} />}

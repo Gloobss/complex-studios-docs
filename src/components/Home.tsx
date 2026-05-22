@@ -19,6 +19,7 @@ import {
   Car,
   Users,
   Crown,
+  Scale,
 } from 'lucide-react';
 import type { DocType } from '../App';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -236,6 +237,17 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
           >
             <MessageCircle className="w-4 h-4" />
             {isEs ? 'Abrir Discord' : 'Open Discord'}
+          </a>
+          <a
+            href="/rules"
+            onClick={(e) => {
+              e.preventDefault();
+              onSelectDoc('rules');
+            }}
+            className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-white text-[14.5px] hover:border-white/40 hover:bg-white/[0.04] transition-colors"
+          >
+            <Scale className="w-4 h-4" />
+            {isEs ? 'Reglas' : 'Rules'}
           </a>
           <a
             href={brand.urls.tebex}

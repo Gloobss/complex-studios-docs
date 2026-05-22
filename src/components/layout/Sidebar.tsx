@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown, Scale } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -156,6 +156,19 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
       { id: 'vipsystem-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
     ],
   },
+  {
+    docId: 'rules',
+    title: isEs ? 'POLÍTICAS' : 'POLICIES',
+    icon: Scale,
+    items: [
+      { id: 'rules-refunds',       label: isEs ? 'Sin reembolsos'  : 'No refunds' },
+      { id: 'rules-support',       label: isEs ? 'Soporte'         : 'Support' },
+      { id: 'rules-modifications', label: isEs ? 'Modificaciones'  : 'Modifications' },
+      { id: 'rules-license',       label: isEs ? 'Licencia'        : 'License' },
+      { id: 'rules-chargebacks',   label: isEs ? 'Contracargos'    : 'Chargebacks' },
+      { id: 'rules-acceptance',    label: isEs ? 'Aceptación'      : 'Acceptance' },
+    ],
+  },
 ];
 
 export function Sidebar({
@@ -163,7 +176,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

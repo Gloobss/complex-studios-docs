@@ -87,6 +87,14 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'vipsystem-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'vipsystem-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  rules: [
+    { id: 'rules-refunds', label: isEs ? 'Sin reembolsos' : 'No refunds' },
+    { id: 'rules-support', label: isEs ? 'Soporte' : 'Support' },
+    { id: 'rules-modifications', label: isEs ? 'Modificaciones' : 'Modifications' },
+    { id: 'rules-license', label: isEs ? 'Licencia' : 'License' },
+    { id: 'rules-chargebacks', label: isEs ? 'Contracargos' : 'Chargebacks' },
+    { id: 'rules-acceptance', label: isEs ? 'Aceptación' : 'Acceptance' },
+  ],
 });
 
 const containerVariants: Variants = {
