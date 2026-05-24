@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown, Scale } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown, Backpack, Scale } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'rules';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -157,6 +157,18 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
     ],
   },
   {
+    docId: 'itemcarry',
+    title: 'CPX ITEM CARRY',
+    icon: Backpack,
+    items: [
+      { id: 'itemcarry-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'itemcarry-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'itemcarry-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'itemcarry-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'itemcarry-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
+  {
     docId: 'rules',
     title: isEs ? 'POLÍTICAS' : 'POLICIES',
     icon: Scale,
@@ -176,7 +188,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'rules' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {

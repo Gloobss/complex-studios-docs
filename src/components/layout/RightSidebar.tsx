@@ -87,6 +87,13 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'vipsystem-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'vipsystem-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  itemcarry: [
+    { id: 'itemcarry-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'itemcarry-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'itemcarry-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'itemcarry-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
+    { id: 'itemcarry-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
   rules: [
     { id: 'rules-refunds', label: isEs ? 'Sin reembolsos' : 'No refunds' },
     { id: 'rules-support', label: isEs ? 'Soporte' : 'Support' },

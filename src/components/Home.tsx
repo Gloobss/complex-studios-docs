@@ -19,6 +19,7 @@ import {
   Car,
   Users,
   Crown,
+  Backpack,
   Scale,
 } from 'lucide-react';
 import type { DocType } from '../App';
@@ -546,6 +547,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniIcon={Crown}
             miniLabel="cpx-vipsystem"
             onClick={() => onSelectDoc('vipsystem')}
+          />
+
+          {/* CPX Item Carry */}
+          <ProductCard
+            name="CPX Item Carry"
+            tagline={
+              isEs
+                ? 'Herramienta admin que muestra items del inventario como props 3D sobre el cuerpo: editor visual, gizmo 3D, animaciones de carga y limitador de acciones. Sin base de datos.'
+                : 'Admin tool that shows inventory items as 3D props on the body: visual editor, 3D gizmo, carry animations and an action limiter. No database.'
+            }
+            icon={Backpack}
+            accentClass="from-[#38BDF8] to-[#7dd3fc]"
+            ringClass="hover:border-[#38BDF8]/30 hover:shadow-[0_20px_80px_-20px_rgba(56,189,248,0.20)]"
+            iconBgClass="from-[#38BDF8] to-[#7dd3fc]"
+            shadowClass="shadow-[0_0_50px_rgba(56,189,248,0.4)] group-hover:shadow-[0_0_80px_rgba(56,189,248,0.6)]"
+            buttonClass="bg-[#38BDF8] hover:bg-[#5fcbfa] shadow-[0_0_20px_rgba(56,189,248,0.25)] text-black"
+            titleHoverClass="group-hover:text-[#38BDF8]"
+            miniIcon={Backpack}
+            miniLabel="cpx-itemcarrys"
+            onClick={() => onSelectDoc('itemcarry')}
           />
         </div>
       </section>

@@ -18,13 +18,14 @@ import { AnnouncementsDocs } from './components/docs/AnnouncementsDocs';
 import { ChopshopDocs } from './components/docs/ChopshopDocs';
 import { GangsDocs } from './components/docs/GangsDocs';
 import { VipSystemDocs } from './components/docs/VipSystemDocs';
+import { ItemCarryDocs } from './components/docs/ItemCarryDocs';
 import { RulesDocs } from './components/docs/RulesDocs';
 import { HeroBackground } from './components/ui/HeroBackground';
 import { Menu, X, Languages } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
-export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'rules';
+export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'rules';
 
 // Clean URLs, Vercel-style: every doc owns a path (/, /chopshop, /rules …).
 // vercel.json already rewrites all paths to index.html, so deep-links and
@@ -32,7 +33,7 @@ export type DocType = 'home' | 'laptop' | 'restaurants' | 'racing' | 'frames' | 
 const DOC_TYPES: DocType[] = [
   'home', 'laptop', 'restaurants', 'racing', 'frames', 'pausemenu',
   'album', 'clothesdesigner', 'announcements', 'chopshop', 'gangs',
-  'vipsystem', 'rules',
+  'vipsystem', 'itemcarry', 'rules',
 ];
 
 function pathToDoc(pathname: string): DocType {
@@ -163,6 +164,7 @@ function AppContent() {
         {currentDoc === 'chopshop' && <ChopshopDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'gangs' && <GangsDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'vipsystem' && <VipSystemDocs onSelectDoc={setCurrentDoc} />}
+        {currentDoc === 'itemcarry' && <ItemCarryDocs onSelectDoc={setCurrentDoc} />}
         {currentDoc === 'rules' && <RulesDocs onSelectDoc={setCurrentDoc} />}
       </main>
 
