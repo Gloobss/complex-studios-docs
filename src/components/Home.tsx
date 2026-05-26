@@ -546,6 +546,7 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             titleHoverClass="group-hover:text-[#FF4D1C]"
             miniIcon={Crown}
             miniLabel="cpx-vipsystem"
+            videoId="lCclJEfBllM"
             onClick={() => onSelectDoc('vipsystem')}
           />
 
