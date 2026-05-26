@@ -23,11 +23,16 @@ export const vipsystemConfigSchema: ConfigSchema = {
       type: 'select',
       label: { en: 'Framework', es: 'Framework' },
       description: {
-        en: 'Only QBCore is supported at this time.',
-        es: 'Por ahora solo se soporta QBCore.',
+        en: 'Leave on auto to detect QBCore / Qbox / ESX. Force one only if detection fails.',
+        es: 'Dejalo en auto para detectar QBCore / Qbox / ESX. Forzá uno solo si la detección falla.',
       },
-      default: 'qb',
-      options: [{ value: 'qb', label: 'qb-core' }],
+      default: 'auto',
+      options: [
+        { value: 'auto', label: { en: 'Auto-detect', es: 'Auto-detectar' } },
+        { value: 'qb', label: 'QBCore' },
+        { value: 'qbx', label: 'Qbox (QBX)' },
+        { value: 'esx', label: 'ESX' },
+      ],
     },
 
     /* ── Logs ────────────────────────────── */
