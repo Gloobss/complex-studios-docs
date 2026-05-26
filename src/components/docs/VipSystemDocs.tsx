@@ -53,8 +53,8 @@ export function VipSystemDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => 
 
         <p className="text-[17px] text-zinc-400 leading-relaxed mb-10 font-sans max-w-2xl">
           {isEs
-            ? 'Tienda premium in-game para FiveM (QBCore). Los jugadores gastan una sola moneda (coins) en bundles, vehículos, casas, mascotas e items, abren cajas misteriosas estilo CS:GO y recargan coins desde tu tienda Tebex con entrega automática.'
-            : 'In-game premium store for FiveM (QBCore). Players spend a single currency (coins) on bundles, vehicles, houses, pets and items, open CS:GO-style mystery cases, and top up coins through your Tebex store with automatic in-game delivery.'}
+            ? 'Tienda premium in-game para FiveM (QBCore). Los jugadores gastan una sola moneda (coins) en bundles, vehículos, casas, mascotas e items, abren cajas misteriosas con ruleta giratoria y recargan coins desde tu tienda Tebex con entrega automática.'
+            : 'In-game premium store for FiveM (QBCore). Players spend a single currency (coins) on bundles, vehicles, houses, pets and items, open spinning-roulette mystery cases, and top up coins through your Tebex store with automatic in-game delivery.'}
         </p>
 
         <YouTubeHero
@@ -77,8 +77,8 @@ export function VipSystemDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => 
           </h2>
           <p className="text-[15.5px] text-zinc-400 leading-relaxed mb-4">
             {isEs
-              ? 'CPX VIP System es una tienda premium in-game para FiveM (QBCore). Los jugadores gastan una sola moneda (coins) en bundles, vehículos, casas, mascotas e items, abren cajas misteriosas estilo CS:GO y recargan coins a través de tu tienda Tebex con entrega automática in-game.'
-              : 'CPX VIP System is an in-game premium store for FiveM (QBCore). Players spend a single currency (coins) on bundles, vehicles, houses, pets and items, open CS:GO-style mystery cases, and top up coins through your Tebex store with automatic in-game delivery.'}
+              ? 'CPX VIP System es una tienda premium in-game para FiveM (QBCore). Los jugadores gastan una sola moneda (coins) en bundles, vehículos, casas, mascotas e items, abren cajas misteriosas con ruleta giratoria y recargan coins a través de tu tienda Tebex con entrega automática in-game.'
+              : 'CPX VIP System is an in-game premium store for FiveM (QBCore). Players spend a single currency (coins) on bundles, vehicles, houses, pets and items, open spinning-roulette mystery cases, and top up coins through your Tebex store with automatic in-game delivery.'}
           </p>
           <p className="text-[15.5px] text-zinc-400 leading-relaxed">
             {isEs
@@ -117,8 +117,8 @@ export function VipSystemDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => 
                 icon: Sparkles,
                 title: isEs ? 'Cajas misteriosas' : 'Mystery cases',
                 description: isEs
-                  ? 'Ruleta giratoria estilo CS:GO, tiers de rareza y opción de vender o quedarte el premio.'
-                  : 'CS:GO-style roulette spin, rarity tiers and a sell-or-keep choice on every win.',
+                  ? 'Ruleta giratoria animada, tiers de rareza y opción de vender o quedarte el premio.'
+                  : 'Animated roulette spin, rarity tiers and a sell-or-keep choice on every win.',
                 colorClass: 'text-[#FF4D1C]',
                 bgClass: 'bg-[#FF4D1C]/10',
               },

@@ -534,8 +534,8 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             name="CPX VIP System"
             tagline={
               isEs
-                ? 'Tienda premium in-game con una sola moneda (coins): bundles, vehículos, casas y mascotas, cajas misteriosas estilo CS:GO y recargas via Tebex con entrega automática.'
-                : 'In-game premium store on a single currency (coins): bundles, vehicles, houses and pets, CS:GO-style mystery cases and Tebex top-ups with automatic delivery.'
+                ? 'Tienda premium in-game con una sola moneda (coins): bundles, vehículos, casas y mascotas, cajas misteriosas con ruleta giratoria y recargas via Tebex con entrega automática.'
+                : 'In-game premium store on a single currency (coins): bundles, vehicles, houses and pets, spinning-roulette mystery cases and Tebex top-ups with automatic delivery.'
             }
             icon={Crown}
             accentClass="from-[#FF4D1C] to-[#ff8a4c]"
