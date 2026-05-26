@@ -17,6 +17,7 @@ import { Step } from '../ui/Step';
 import { CodeBlock } from '../ui/CodeBlock';
 import { DocFooter } from '../ui/DocFooter';
 import { FeatureGrid } from '../ui/FeatureGrid';
+import { YouTubeHero } from '../ui/YouTubeHero';
 import { ConfigGenerator } from '../ui/ConfigGenerator';
 import { vipsystemConfigSchema } from '../../lib/configs/vipsystem-config';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -56,10 +57,16 @@ export function VipSystemDocs({ onSelectDoc }: { onSelectDoc: (doc: DocType) => 
             : 'In-game premium store for FiveM (QBCore). Players spend a single currency (coins) on bundles, vehicles, houses, pets and items, open CS:GO-style mystery cases, and top up coins through your Tebex store with automatic in-game delivery.'}
         </p>
 
+        <YouTubeHero
+          videoId="lCclJEfBllM"
+          title="CPX VIP System"
+          accent={ACCENT}
+        />
+
         {/* ── INTRODUCTION ─────────────────── */}
         <motion.section
           id="vipsystem-intro"
-          className="mt-12 mb-20 scroll-mt-[10vh]"
+          className="mt-24 mb-20 scroll-mt-[10vh]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
