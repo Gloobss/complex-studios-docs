@@ -94,6 +94,13 @@ const getRightTocs = (isEs: boolean) => ({
     { id: 'itemcarry-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
     { id: 'itemcarry-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
   ],
+  streamers: [
+    { id: 'streamers-intro', label: isEs ? 'Resumen' : 'Introduction' },
+    { id: 'streamers-features', label: isEs ? 'Características' : "What's Inside" },
+    { id: 'streamers-install', label: isEs ? 'Instalación' : 'Installation' },
+    { id: 'streamers-config', label: isEs ? 'Configuración Interactiva' : 'Interactive Config' },
+    { id: 'streamers-troubleshoot', label: isEs ? 'Solución de Problemas' : 'Troubleshooting' },
+  ],
   rules: [
     { id: 'rules-refunds', label: isEs ? 'Sin reembolsos' : 'No refunds' },
     { id: 'rules-support', label: isEs ? 'Soporte' : 'Support' },

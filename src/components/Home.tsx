@@ -20,6 +20,7 @@ import {
   Users,
   Crown,
   Backpack,
+  Radio,
   Scale,
 } from 'lucide-react';
 import type { DocType } from '../App';
@@ -568,6 +569,26 @@ export function Home({ onSelectDoc }: { onSelectDoc: (doc: DocType) => void }) {
             miniIcon={Backpack}
             miniLabel="cpx-itemcarrys"
             onClick={() => onSelectDoc('itemcarry')}
+          />
+
+          {/* CPX Streamers */}
+          <ProductCard
+            name="CPX Streamers"
+            tagline={
+              isEs
+                ? 'Programa de creadores con Battle Pass por rangos, constructor de recompensas en vivo, acceso desde el panel (sin roles de Discord) y un panel admin que gestiona todo dentro del juego.'
+                : 'Content-creator program with a tiered Battle Pass, a live rewards builder, panel-based access (no Discord roles) and an admin panel that runs everything in-game.'
+            }
+            icon={Radio}
+            accentClass="from-[#F4517A] to-[#FF8FB5]"
+            ringClass="hover:border-[#F4517A]/30 hover:shadow-[0_20px_80px_-20px_rgba(244,81,122,0.20)]"
+            iconBgClass="from-[#F4517A] to-[#FF8FB5]"
+            shadowClass="shadow-[0_0_50px_rgba(244,81,122,0.4)] group-hover:shadow-[0_0_80px_rgba(244,81,122,0.6)]"
+            buttonClass="bg-[#F4517A] hover:bg-[#f76a8d] shadow-[0_0_20px_rgba(244,81,122,0.25)] text-black"
+            titleHoverClass="group-hover:text-[#F4517A]"
+            miniIcon={Radio}
+            miniLabel="cpx-streamers"
+            onClick={() => onSelectDoc('streamers')}
           />
         </div>
       </section>

@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown, Backpack, Scale } from 'lucide-react';
+import { Search, Utensils, Laptop, Image as ImageIcon, Flag, ChevronDown, Home, Pause, BookOpen, Shirt, Megaphone, Car, Users, Crown, Backpack, Scale, Radio } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { DocType } from '../../App';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 type NavSection = {
-  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'rules';
+  docId: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'streamers' | 'rules';
   title: string;
   icon: typeof Laptop;
   items: { id: string; label: string }[];
@@ -169,6 +169,18 @@ const buildNavSections = (isEs: boolean): NavSection[] => [
     ],
   },
   {
+    docId: 'streamers',
+    title: 'CPX STREAMERS',
+    icon: Radio,
+    items: [
+      { id: 'streamers-intro',        label: isEs ? 'Introducción'          : 'Introduction' },
+      { id: 'streamers-features',     label: isEs ? 'Características'        : 'Features' },
+      { id: 'streamers-install',      label: isEs ? 'Instalación'           : 'Installation' },
+      { id: 'streamers-config',       label: isEs ? 'Configuración'         : 'Configuration' },
+      { id: 'streamers-troubleshoot', label: isEs ? 'Solución de problemas' : 'Troubleshooting' },
+    ],
+  },
+  {
     docId: 'rules',
     title: isEs ? 'POLÍTICAS' : 'POLICIES',
     icon: Scale,
@@ -188,7 +200,7 @@ export function Sidebar({
   onSelectDoc,
   isMobile = false,
 }: {
-  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'rules' | 'home';
+  currentDoc: 'laptop' | 'restaurants' | 'racing' | 'frames' | 'pausemenu' | 'album' | 'clothesdesigner' | 'announcements' | 'chopshop' | 'gangs' | 'vipsystem' | 'itemcarry' | 'streamers' | 'rules' | 'home';
   onSelectDoc: (d: DocType) => void;
   isMobile?: boolean;
 }) {
